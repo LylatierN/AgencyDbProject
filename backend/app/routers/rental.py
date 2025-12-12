@@ -20,7 +20,7 @@ router = APIRouter(
 @router.get(
     "/available",
     response_model=APIResponse,
-    summary="Find available rental places for a given datetime range"
+    summary="(Q3)Find available rental places for a given datetime range"
 )
 def get_available_rental_places(
     db: Session = Depends(get_db),
@@ -30,18 +30,15 @@ def get_available_rental_places(
     """
     Finds rental places that have no usage conflict between `start_dt` and `end_dt`.
     """
-    # Find place IDs that have a usage conflict
     conflicting_place_ids = (
         select(RentalUsage.place_id)
         .where(
-            # Conflict condition: (place_usage_start < new_end) AND (place_usage_end > new_start)
             RentalUsage.start_time < end_dt,
             RentalUsage.end_time > start_dt
         )
         .distinct()
     ).scalar_subquery()
 
-    # Find rental places that are NOT in the conflicting list
     stmt = (
         select(
             RentalPlace.place_id,
@@ -79,7 +76,7 @@ def get_available_rental_places(
 @router.get(
     "/in-use-on-date",
     response_model=APIResponse,
-    summary="List all rental places in use on a specific date"
+    summary="(Q10)List all rental places in use on a specific date"
 )
 def get_places_in_use_on_date(
     db: Session = Depends(get_db),
@@ -97,7 +94,6 @@ def get_places_in_use_on_date(
         )
         .join(RentalUsage, RentalPlace.place_id == RentalUsage.place_id)
         .where(
-            # Checks if the usage period overlaps the date boundary (using DATE casting)
             cast(RentalUsage.start_time, Date) <= target_date,
             cast(RentalUsage.end_time, Date) >= target_date
         )
@@ -105,7 +101,6 @@ def get_places_in_use_on_date(
     )
     result = db.execute(stmt).all()
     
-    # Use isoformat() for datetime objects to ensure clean JSON serialization
     data_list = [
         {
             "name": r.name,

@@ -28,7 +28,7 @@ router = APIRouter(
 @router.get(
     "/activity/counts",
     response_model=APIResponse,
-    summary="Count of activities (tasks) within a time range"
+    summary="(Q4)Count of activities (tasks) within a time range"
 )
 def get_activity_type_counts(
     db: Session = Depends(get_db),
@@ -73,7 +73,7 @@ def get_activity_type_counts(
 @router.get(
     "/production/music",
     response_model=APIResponse,
-    summary="List Music Productions with Performer and Release Info"
+    summary="(Q9)List Music Productions with Performer and Release Info"
 )
 def get_music_production_details(
     db: Session = Depends(get_db),
@@ -123,7 +123,7 @@ def get_music_production_details(
 @router.get(
     "/upcoming",
     response_model=APIResponse,
-    summary="List upcoming production schedules"
+    summary="(Q14)List upcoming production schedules"
 )
 def get_upcoming_schedule(
     db: Session = Depends(get_db),

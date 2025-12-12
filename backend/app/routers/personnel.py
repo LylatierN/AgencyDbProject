@@ -21,7 +21,7 @@ router = APIRouter(
 @router.get(
     "/by-type",
     response_model=APIResponse,
-    summary="List Personnel by Position/Type (Director, Actor, etc.)"
+    summary="(Q1)List Personnel by Position/Type (Director, Actor, etc.)"
 )
 def list_personnel_by_type(
     db: Session = Depends(get_db),
@@ -68,12 +68,12 @@ def list_personnel_by_type(
 @router.get(
     "/available",
     response_model=APIResponse,
-    summary="Find Personnel Free within a Time Range"
+    summary="(Q2)Find Personnel Free within a Time Range"
 )
 def get_available_personnel(
     db: Session = Depends(get_db),
-    start_dt: datetime = Query(..., description="Start datetime of the required availability period."),
-    end_dt: datetime = Query(..., description="End datetime of the required availability period."),
+    start_dt: datetime = Query(..., description="Start datetime of the required availability period (e.g., 2024-02-10T09:00:00)."),
+    end_dt: datetime = Query(..., description="End datetime of the required availability period (e.g., 2024-02-10T12:00:00)."),
     personnel_types: List[str] = Query(
         ['Actor', 'Crew'],
         description="Personnel types to check availability for."
@@ -83,7 +83,6 @@ def get_available_personnel(
     Finds personnel of specified types who do not have a conflicting schedule
     between `start_dt` and `end_dt`.
     """
-    # Find personnel IDs that have a conflicting schedule
     conflicting_personnel_ids = (
         select(ProductionSchedule.personnel_id)
         .where(
@@ -93,15 +92,16 @@ def get_available_personnel(
         .distinct()
     ).scalar_subquery()
 
-    # Find personnel who are NOT in the conflicting list
     stmt = (
         select(
             Personnel.personnel_id,
             Personnel.name,
             Personnel.personnel_type
         )
-        .where(Personnel.personnel_type.in_(personnel_types))
-        .where(Personnel.personnel_id.not_in(conflicting_personnel_ids))
+        .where(
+            Personnel.personnel_type.in_(personnel_types),
+            Personnel.personnel_id.not_in(conflicting_personnel_ids)
+        )
     )
     result = db.execute(stmt).all()
     
@@ -128,7 +128,7 @@ def get_available_personnel(
 @router.get(
     "/actors/top-projects",
     response_model=APIResponse,
-    summary="Top N Actors/Actresses with the most production projects"
+    summary="(Q5)Top N Actors/Actresses with the most production projects"
 )
 def get_top_n_actors_by_projects(
     db: Session = Depends(get_db),
@@ -172,7 +172,7 @@ def get_top_n_actors_by_projects(
 @router.get(
     "/actors/least-jobs",
     response_model=APIResponse,
-    summary="N Actors/Actresses with the least jobs"
+    summary="(Q6)N Actors/Actresses with the least jobs"
 )
 def get_least_n_actors_by_jobs(
     db: Session = Depends(get_db),

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import select, func, or_
 from datetime import datetime, date
@@ -28,7 +28,7 @@ router = APIRouter(
 @router.get(
     "/personnel/assignments",
     response_model=APIResponse,
-    summary="List all personnel and their assignments (Searchable)"
+    summary="(Q7)List all personnel and their assignments (Searchable)"
 )
 def list_all_personnel_assignments(
     db: Session = Depends(get_db),
@@ -50,8 +50,7 @@ def list_all_personnel_assignments(
         .outerjoin(Production, PersonnelAssignment.production_id == Production.production_id)
         .order_by(Personnel.name)
     )
-    
-    # Apply filters if provided
+
     filters = []
     if name_search:
         filters.append(Personnel.name.like(f"%{name_search}%"))
@@ -67,7 +66,6 @@ def list_all_personnel_assignments(
         {
             "personnel_name": r.personnel_name,
             "personnel_type": r.personnel_type,
-            # Handle possible NULLs from outer join for unassigned personnel
             "production_title": r.production_title if r.production_title else "N/A",
             "role_title": r.role_title if r.role_title else "N/A"
         }
@@ -88,7 +86,7 @@ def list_all_personnel_assignments(
 @router.get(
     "/personnel/contracts",
     response_model=APIResponse,
-    summary="Personnel Contract Overlap (Searchable)"
+    summary="(Q8)Personnel Contract Overlap (Searchable)"
 )
 def list_personnel_contract_data(
     db: Session = Depends(get_db),
@@ -142,7 +140,7 @@ def list_personnel_contract_data(
 @router.get(
     "/production/expenses/summary",
     response_model=APIResponse,
-    summary="Total expenses grouped by production"
+    summary="(Q11)Total expenses grouped by production"
 )
 def show_production_expense_summary(
     db: Session = Depends(get_db)
@@ -183,7 +181,7 @@ def show_production_expense_summary(
 @router.get(
     "/performers",
     response_model=APIResponse,
-    summary="List all performers and their performance types/agencies"
+    summary="(Q12)List all performers and their performance types/agencies"
 )
 def list_all_performers(
     db: Session = Depends(get_db)
@@ -223,34 +221,47 @@ def list_all_performers(
 # =================================================================
 
 @router.get(
-    "/partners",
-    response_model=APIResponse,
-    summary="List all partners and their contracted personnel"
+    "/partners/for-performer",
+    summary="(Q13)Find all partners contracted with a specific Performer"
 )
-def list_partners_and_contracted_personnel(
-    db: Session = Depends(get_db)
+def get_partners_by_performer_name(
+    db: Session = Depends(get_db),
+    performer_name: str = Query(..., description="Full name of the Performer (e.g., 'Alice Kim').")
 ) -> Dict[str, Any]:
     """
-    Lists all external partners, the service they provide, and the internal personnel 
-    they are directly contracted with.
+    Retrieves all external partners and their service types that are contracted
+    with the specified personnel, provided that personnel is a Performer.
     """
+    personnel_id = (
+        select(Personnel.personnel_id)
+        .join(Performer, Personnel.personnel_id == Performer.personnel_id)
+        .where(Personnel.name == performer_name)
+    ).scalar_one_or_none()
+
+    if personnel_id is None:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"Performer '{performer_name}' not found or is not listed as a Performer."
+        )
+
     stmt = (
         select(
             PartnerPersonnel.name.label("partner_name"),
             PartnerPersonnel.service_type,
             Personnel.name.label("personnel_name")
         )
-        # Use LEFT JOIN to include partners who might not have a personnel_id yet
-        .outerjoin(Personnel, PartnerPersonnel.personnel_id == Personnel.personnel_id)
+        .join(Personnel, PartnerPersonnel.personnel_id == Personnel.personnel_id)
+        .where(PartnerPersonnel.personnel_id == personnel_id)
         .order_by(PartnerPersonnel.name)
     )
+
     result = db.execute(stmt).all()
     
     data_list = [
         {
             "partner_name": r.partner_name,
             "service_type": r.service_type,
-            "personnel_name": r.personnel_name if r.personnel_name else "N/A"
+            "personnel_name": r.personnel_name
         }
         for r in result
     ]

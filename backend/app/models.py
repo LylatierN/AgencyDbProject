@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date, Numeric, DateTime, ForeignKey, Text
-from sqlalchemy.orm import relationship, declarative_base
-from typing import List, Optional # For type hints on relationships
+from sqlalchemy.orm import relationship, declarative_base, Mapped # <-- Mapped is critical here
+from typing import List, Optional
 from .database import Base
 
 # ===============================
@@ -16,22 +16,22 @@ class Personnel(Base):
     contract_hire_date: Date = Column(Date)
     contract_expiration_date: Date = Column(Date)
 
-    performer: Optional['Performer'] = relationship(
+    performer: Mapped[Optional['Performer']] = relationship(
         'Performer',
         back_populates='personnel',
-        uselist=False, # One-to-One
+        uselist=False,
         cascade='all, delete-orphan'
     )
-    partner_personnel_contracts: List['PartnerPersonnel'] = relationship(
+    partner_personnel_contracts: Mapped[List['PartnerPersonnel']] = relationship(
         'PartnerPersonnel',
         back_populates='personnel',
         foreign_keys='PartnerPersonnel.personnel_id'
     )
-    assignments: List['PersonnelAssignment'] = relationship(
+    assignments: Mapped[List['PersonnelAssignment']] = relationship(
         'PersonnelAssignment',
         back_populates='personnel'
     )
-    schedules: List['ProductionSchedule'] = relationship(
+    schedules: Mapped[List['ProductionSchedule']] = relationship(
         'ProductionSchedule',
         back_populates='personnel'
     )
@@ -42,7 +42,7 @@ class Performer(Base):
     performance_type: str = Column(String(50))
     agency: str = Column(String(50))
 
-    personnel: 'Personnel' = relationship('Personnel', back_populates='performer')
+    personnel: Mapped['Personnel'] = relationship('Personnel', back_populates='performer')
 
 class PartnerPersonnel(Base):
     __tablename__ = 'partner_personnel'
@@ -55,8 +55,8 @@ class PartnerPersonnel(Base):
     contract_amount: float = Column(Numeric)
     contact_info: str = Column(Text)
 
-    personnel: 'Personnel' = relationship('Personnel', back_populates='partner_personnel_contracts', foreign_keys=[personnel_id])
-    productions: List['Production'] = relationship('Production', back_populates='partner')
+    personnel: Mapped['Personnel'] = relationship('Personnel', back_populates='partner_personnel_contracts', foreign_keys=[personnel_id])
+    productions: Mapped[List['Production']] = relationship('Production', back_populates='partner')
 
 # ===============================
 # PRODUCTION TABLES
@@ -71,13 +71,13 @@ class Production(Base):
     contract_expiration_date: Date = Column(Date)
     partner_id: int = Column(Integer, ForeignKey('partner_personnel.partner_id'))
 
-    partner: 'PartnerPersonnel' = relationship('PartnerPersonnel', back_populates='productions')
-    general_details: Optional['GeneralProduction'] = relationship('GeneralProduction', back_populates='production', uselist=False, cascade='all, delete-orphan')
-    event_details: Optional['EventProduction'] = relationship('EventProduction', back_populates='production', uselist=False, cascade='all, delete-orphan')
-    expenses: List['ProductionExpense'] = relationship('ProductionExpense', back_populates='production')
-    assignments: List['PersonnelAssignment'] = relationship('PersonnelAssignment', back_populates='production')
-    schedules: List['ProductionSchedule'] = relationship('ProductionSchedule', back_populates='production')
-    rental_usages: List['RentalUsage'] = relationship('RentalUsage', back_populates='production')
+    partner: Mapped['PartnerPersonnel'] = relationship('PartnerPersonnel', back_populates='productions')
+    general_details: Mapped[Optional['GeneralProduction']] = relationship('GeneralProduction', back_populates='production', uselist=False, cascade='all, delete-orphan')
+    event_details: Mapped[Optional['EventProduction']] = relationship('EventProduction', back_populates='production', uselist=False, cascade='all, delete-orphan')
+    expenses: Mapped[List['ProductionExpense']] = relationship('ProductionExpense', back_populates='production')
+    assignments: Mapped[List['PersonnelAssignment']] = relationship('PersonnelAssignment', back_populates='production')
+    schedules: Mapped[List['ProductionSchedule']] = relationship('ProductionSchedule', back_populates='production')
+    rental_usages: Mapped[List['RentalUsage']] = relationship('RentalUsage', back_populates='production')
 
 class GeneralProduction(Base):
     __tablename__ = 'generalproduction'
@@ -86,7 +86,7 @@ class GeneralProduction(Base):
     plan_release_quarter: int = Column(Integer)
     plan_release_year: int = Column(Integer)
 
-    production: 'Production' = relationship('Production', back_populates='general_details')
+    production: Mapped['Production'] = relationship('Production', back_populates='general_details')
 
 class EventProduction(Base):
     __tablename__ = 'eventproduction'
@@ -95,7 +95,7 @@ class EventProduction(Base):
     location: str = Column(String(50))
     audience_capacity: int = Column(Integer)
 
-    production: 'Production' = relationship('Production', back_populates='event_details')
+    production: Mapped['Production'] = relationship('Production', back_populates='event_details')
 
 class ProductionExpense(Base):
     __tablename__ = 'productionexpense'
@@ -106,7 +106,7 @@ class ProductionExpense(Base):
     expense_date: Date = Column(Date)
     description: str = Column(Text)
 
-    production: 'Production' = relationship('Production', back_populates='expenses')
+    production: Mapped['Production'] = relationship('Production', back_populates='expenses')
 
 class PersonnelAssignment(Base):
     __tablename__ = 'personnelassignment'
@@ -114,8 +114,8 @@ class PersonnelAssignment(Base):
     production_id: int = Column(Integer, ForeignKey('production.production_id'), primary_key=True)
     role_title: str = Column(String(50))
 
-    personnel: 'Personnel' = relationship('Personnel', back_populates='assignments')
-    production: 'Production' = relationship('Production', back_populates='assignments')
+    personnel: Mapped['Personnel'] = relationship('Personnel', back_populates='assignments')
+    production: Mapped['Production'] = relationship('Production', back_populates='assignments')
 
 class ProductionSchedule(Base):
     __tablename__ = 'productionschedule'
@@ -127,8 +127,8 @@ class ProductionSchedule(Base):
     taskname: str = Column(String(50))
     location: str = Column(String(50))
 
-    production: 'Production' = relationship('Production', back_populates='schedules')
-    personnel: 'Personnel' = relationship('Personnel', back_populates='schedules')
+    production: Mapped['Production'] = relationship('Production', back_populates='schedules')
+    personnel: Mapped['Personnel'] = relationship('Personnel', back_populates='schedules')
 
 # ===============================
 # RENTAL TABLES
@@ -143,7 +143,7 @@ class RentalPlace(Base):
     capacity: int = Column(Integer)
     contact_info: str = Column(Text)
 
-    usages: List['RentalUsage'] = relationship('RentalUsage', back_populates='place')
+    usages: Mapped[List['RentalUsage']] = relationship('RentalUsage', back_populates='place')
 
 class RentalUsage(Base):
     __tablename__ = 'rentalusage'
@@ -153,9 +153,9 @@ class RentalUsage(Base):
     start_time: DateTime = Column(DateTime)
     end_time: DateTime = Column(DateTime)
 
-    production: 'Production' = relationship('Production', back_populates='rental_usages')
-    place: 'RentalPlace' = relationship('RentalPlace', back_populates='usages')
-    payments: List['RentalPayment'] = relationship('RentalPayment', back_populates='usage')
+    production: Mapped['Production'] = relationship('Production', back_populates='rental_usages')
+    place: Mapped['RentalPlace'] = relationship('RentalPlace', back_populates='usages')
+    payments: Mapped[List['RentalPayment']] = relationship('RentalPayment', back_populates='usage')
 
 class RentalPayment(Base):
     __tablename__ = 'rentalpayment'
@@ -165,4 +165,4 @@ class RentalPayment(Base):
     total_cost: float = Column(Numeric)
     payment_date: Date = Column(Date)
 
-    usage: 'RentalUsage' = relationship('RentalUsage', back_populates='payments')
+    usage: Mapped['RentalUsage'] = relationship('RentalUsage', back_populates='payments')

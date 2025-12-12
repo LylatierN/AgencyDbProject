@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from app.routers import general_stats, personnel, rental, schedule_activity
-from database import Base, engine
+from .database import Base, engine
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Production Database API",
+    title="Entertainment Agency Database API",
     version="1.0.0"
 )
 
