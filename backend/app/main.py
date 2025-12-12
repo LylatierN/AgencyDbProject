@@ -1,13 +1,18 @@
 from fastapi import FastAPI
-from .routers import items
-from .database import Base, engine
+from app.routers import general_stats, personnel, rental, schedule_activity
+from database import Base, engine
 
-# auto create tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(
+    title="Production Database API",
+    version="1.0.0"
+)
 
-app.include_router(items.router)
+app.include_router(personnel.router)
+app.include_router(rental.router)
+app.include_router(schedule_activity.router)
+app.include_router(general_stats.router)
 
 
 @app.get("/")
