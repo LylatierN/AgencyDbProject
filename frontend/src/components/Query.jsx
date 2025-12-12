@@ -19,6 +19,7 @@ export default class Query extends Component {
       selectedQuery: '',
       isSelecting: true,
       queries: {
+        // TODO: add queries apis' name and component here
         'employees_by_position': {
           label: 'Find all employees in a position',
           component: EmployeesByPosition
