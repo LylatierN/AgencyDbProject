@@ -53,11 +53,20 @@ export default class Results extends Component {
         return (
             <div className="h-full bg-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col">
                 <div className="flex-1 overflow-y-auto px-8 p-6">
-                    {data.map((item, index) => (
-                        <div key={item.id || index}>
-                            {this.dataBlock(item)}
+                    {data.length === 0 ? (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="text-center">
+                                <p className="text-gray-500 text-xl font-semibold">Information not found</p>
+                                <p className="text-gray-400 mt-2">No results match your search</p>
+                            </div>
                         </div>
-                    ))}
+                    ) : (
+                        data.map((item, index) => (
+                            <div key={item.id || index}>
+                                {this.dataBlock(item)}
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
         )
