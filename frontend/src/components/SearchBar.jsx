@@ -15,12 +15,9 @@ export default class SearchBar extends Component {
     handleSearch = (e) => {
         e.preventDefault();
         const { searchTerm } = this.state;
-        
-        if (searchTerm.trim()) {
-            console.log('Searching for:', searchTerm);
-            // Call the parent's search handler
-            this.props.onSearch(searchTerm);
-        }
+        console.log('Searching for:', searchTerm);
+        // Call the parent's search handler with the search term (empty or not)
+        this.props.onSearch(searchTerm);
     }
 
     handleClear = () => {

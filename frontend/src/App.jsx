@@ -7,16 +7,17 @@ import { useState } from 'react';
 
 function App() {
   // All data from backend
-  const [allData, setAllData] = useState([
-    { id: 1, name: 'Sample Data 1', value: 'Value 1' },
-    { id: 2, name: 'Sample Data 2', value: 'Value 2' },
-    { id: 3, name: 'Sample Data 3', value: 'Value 3' },
-    { id: 4, name: 'Sample Data 4', value: 'Value 4' },
-    { id: 5, name: 'Sample Data 5', value: 'Value 5' },
-  ]);
+  const [allData, setAllData] = useState([]);
+
+  const [numData, setNumData] = useState(0);
+  
+  const [allKey, setAllKey] = useState(
+    []
+  );
   
   // Filtered data for display
   const [resultsData, setResultsData] = useState(allData);
+  const [filteredCount, setFilteredCount] = useState(numData);
 
   // Handle frontend search - filter existing data
   const handleSearch = (searchTerm) => {
@@ -25,33 +26,41 @@ function App() {
     if (!searchTerm.trim()) {
       // If search is empty, show all data
       setResultsData(allData);
+      setFilteredCount(allData.length);
       return;
     }
 
     // Filter data based on search term
     const filtered = allData.filter(item => {
       const searchLower = searchTerm.toLowerCase();
-      return (
-        item.name?.toLowerCase().includes(searchLower) ||
-        item.value?.toLowerCase().includes(searchLower) ||
-        item.id?.toString().includes(searchLower)
+      // Check all keys dynamically
+      return allKey.some(key => 
+        item[key]?.toString().toLowerCase().includes(searchLower)
       );
     });
     
     setResultsData(filtered);
-  };
-
-  // This function will be called by Query component when user submits
+    setFilteredCount(filtered.length);
+  };  // This function will be called by Query component when user submits
   const handleQuerySubmit = async (queryType, queryParams) => {
     console.log('Query submitted:', queryType, queryParams);
     // TODO: Replace with actual API call to get new data
-    // const response = await fetch(`/api/${queryType}`, {
+    // const response = await fetch(`http://localhost:8000/api/${queryType}`, {
     //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
     //   body: JSON.stringify(queryParams)
     // });
+
+
+    // the data sent as list of parameters (for just ask focus)
+
     // const data = await response.json();
-    // setAllData(data);  // Store all data
-    // setResultsData(data);  // Display all data
+    // setAllData(data.data);  // Store all data
+    // setResultsData(data.data);  // Display all data
+    // setNumData(data.counted);
+    // setAllKey(data.keys);
   };
 
   return (
@@ -60,12 +69,16 @@ function App() {
       <div className="flex-shrink-0 bg-gray-100 py-8 px-4 space-y-6">
         <Query onQuerySubmit={handleQuerySubmit} />
       </div>
-      <div className="flex-shrink-0 bg-gray-100 py-0 px-4 flex justify-start w-full mb-4 mx-5">
+      <div className="flex-shrink-0 bg-gray-100 py-0 px-4 flex justify-between w-90 mb-4 mx-5 me-5">
         <SearchBar onSearch={handleSearch} />
+        <div className="text-gray-700 flex gap-4">
+            <strong>{filteredCount}</strong>
+        </div>
       </div>
       <div className="flex-1 bg-gray-100 px-4 pb-8 min-h-0 max-h-screen mx-5">
         <Results data={resultsData} />
       </div>
+    
     </div>
   );
 }
