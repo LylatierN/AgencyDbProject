@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
-import EmployeesByDepartment from './queries/EmployeesByDepartment'
-import ProjectsByBudget from './queries/ProjectsByBudget'
-import EmployeesByRole from './queries/EmployeesByRole'
-import DepartmentsByLocation from './queries/DepartmentsByLocation'
+import EmployeesByPosition from './queries/EmployeesByPosition'
+import ActivitiesOnDates from './queries/ActivitiesOnDates'
+import FreeEmployeesByRole from './queries/FreeEmployeesByRole'
+import LocationAvailable from './queries/LocationOnDates'
+import TopActors from './queries/TopActors'
+import LeastJob from './queries/LeastJob'
+import EmployeesAssign from './queries/EmployeesAssign'
+import MusicRelease from './queries/MusicRelease'
+import LocationUse from './queries/LocationUse'
+import PerformerPartner from './queries/PerformerPartner'
+import UpcomingProduction from './queries/UpcomingProduction'
+import AllPerformer from './queries/AllPerformer'
 
 export default class Query extends Component {
   constructor(props) {
@@ -10,23 +18,54 @@ export default class Query extends Component {
     this.state = {
       selectedQuery: '',
       isSelecting: true,
-      
       queries: {
-        'employees_by_department': {
-          label: 'Find all employees in a department',
-          component: EmployeesByDepartment
+        'employees_by_position': {
+          label: 'Find all employees in a position',
+          component: EmployeesByPosition
         },
-        'projects_by_budget': {
-          label: 'Find projects by budget range',
-          component: ProjectsByBudget
+        'activities_on_dates': {
+          label: 'Find amount of activities each types of activities between certain dates',
+          component: ActivitiesOnDates
         },
-        'employees_by_role': {
-          label: 'Find employees by role',
-          component: EmployeesByRole
+        'employees_available': {
+          label: 'Find available employees by role in certain dates',
+          component: FreeEmployeesByRole
         },
-        'departments_by_location': {
-          label: 'Find departments by location',
-          component: DepartmentsByLocation
+        'location_available': {
+          label: 'Location available in certain dates',
+          component: LocationAvailable
+        },
+        'top_actors': {
+          label: 'Find top N actors with most productions projects',
+          component: TopActors
+        },
+        'least_job': {
+          label: 'Find N actors with least project',
+          component: LeastJob
+        },
+        'employees_assign': {
+          label: 'All employee and their Production',
+          component: EmployeesAssign
+        },
+        'music_release': {
+          label: 'List music production with performers and plan released info since date',
+          component: MusicRelease
+        },
+        'location_use': {
+          label: 'List all rental places that currently in use on the day',
+          component: LocationUse
+        },
+        'performer_partner': {
+          label: 'Find all partners of the performers',
+          component: PerformerPartner
+        },
+        'upcoming_production': {
+          label: 'Upcoming production schedule',
+          component: UpcomingProduction
+        },
+        'all_performer': {
+          label: 'All performers',
+          component: AllPerformer
         }
       }
     }
@@ -41,6 +80,7 @@ export default class Query extends Component {
 
   handleChangeClick = () => {
     this.setState({
+      selectedQuery: '',
       isSelecting: true
     })
   }

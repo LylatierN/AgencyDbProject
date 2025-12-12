@@ -1,32 +1,36 @@
 import React, { Component } from 'react'
 
-export default class DepartmentsByLocation extends Component {
+export default class EmployeesByPosition extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      location: ''
+      position: '',
+      positions: [
+        'Director','Costumer','Makeup','Actor', 'Singer','Dancer','Photographer','Editor','Writer','Producer','Cinematographer'
+      ]
     }
   }
 
   handleChange = (e) => {
-    this.setState({ location: e.target.value })
+    this.setState({ position: e.target.value })
   }
 
   render() {
     return (
       <div className="flex items-center flex-wrap gap-2">
-        <span className="text-lg text-gray-800">Find all departments in</span>
+        <span className="text-lg text-gray-800">Find all employees that are</span>
         <select
-          value={this.state.location}
+          value={this.state.position}
           onChange={this.handleChange}
           className="px-3 py-1 border-2 border-blue-400 rounded bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={(e) => e.stopPropagation()}
         >
           <option value="">--</option>
-          <option value="New York">New York</option>
-          <option value="San Francisco">San Francisco</option>
-          <option value="London">London</option>
-          <option value="Tokyo">Tokyo</option>
+          {this.state.positions.map((pos, index) => (
+            <option key={index} value={pos}>
+              {pos}
+            </option>
+          ))}
         </select>
       </div>
     )
