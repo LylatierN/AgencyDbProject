@@ -6,13 +6,13 @@ export default class LocationUse extends Component {
     // Get current date in YYYY-MM-DD format
     const today = new Date().toISOString().split('T')[0]
     this.state = {
-      day: today
+      target_date: today
     }
   }
 
   handleDayChange = (e) => {
-    this.setState({ day: e.target.value }, () => {
-      console.log('Day:', this.state.day)
+    this.setState({ target_date: e.target.value }, () => {
+      console.log('Day:', this.state.target_date)
     })
   }
 
@@ -22,7 +22,7 @@ export default class LocationUse extends Component {
         <span className="text-lg text-gray-800"> All rental places that currently in use on the day</span>
         <input
           type="date"
-          value={this.state.day}
+          value={this.state.target_date}
           onChange={this.handleDayChange}
           className="px-3 py-1 border-2 border-blue-400 rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={(e) => e.stopPropagation()}

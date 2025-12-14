@@ -5,28 +5,34 @@ import FreeEmployeesByRole from './queries/FreeEmployeesByRole'
 import LocationAvailable from './queries/LocationOnDates'
 import TopActors from './queries/TopActors'
 import LeastJob from './queries/LeastJob'
-import EmployeesAssign from './queries/EmployeesAssign'
+import ProductionExpense from './queries/ProductionExpense'
 import MusicRelease from './queries/MusicRelease'
 import LocationUse from './queries/LocationUse'
 import PerformerPartner from './queries/PerformerPartner'
 import UpcomingProduction from './queries/UpcomingProduction'
 import AllPerformer from './queries/AllPerformer'
 
+// console.log('🚀 Query.jsx FILE LOADED - Version with logging');
+
 export default class Query extends Component {
   constructor(props) {
     super(props)
+    console.log('🏗️ Query component CONSTRUCTOR called');
     this.state = {
       selectedQuery: '',
       isSelecting: true,
+      queryParams: {},
       queries: {
         // TODO: add queries apis' name and component here
         'employees_by_position': {
           label: 'Find all employees in a position',
-          component: EmployeesByPosition
+          component: EmployeesByPosition,
+          apis: '/personnel/by-type'
         },
         'activities_on_dates': {
           label: 'Find amount of activities each types of activities between certain dates',
-          component: ActivitiesOnDates
+          component: ActivitiesOnDates,
+          apis: '/schedule/activity/counts'
         },
         'employees_available': {
           label: 'Find available employees by role in certain dates',
@@ -44,9 +50,9 @@ export default class Query extends Component {
           label: 'Find N actors with least project',
           component: LeastJob
         },
-        'employees_assign': {
-          label: 'All employee and their Production',
-          component: EmployeesAssign
+        'production_expense': {
+          label: 'total expense amount for every production',
+          component: ProductionExpense
         },
         'music_release': {
           label: 'List music production with performers and plan released info since date',
@@ -73,17 +79,54 @@ export default class Query extends Component {
   }
 
   handleSelectChange = (e) => {
+    const selectedValue = e.target.value;
+    console.log('🎯 QUERY SELECTED:', selectedValue);
+    console.log('Query Label:', this.state.queries[selectedValue]?.label);
+    
     this.setState({
-      selectedQuery: e.target.value,
-      isSelecting: false
+      selectedQuery: selectedValue,
+      isSelecting: false,
+      queryParams: {}
     })
   }
 
   handleChangeClick = () => {
     this.setState({
       selectedQuery: '',
-      isSelecting: true
+      isSelecting: true,
+      queryParams: {}
     })
+  }
+
+  updateQueryParams = (params) => {
+    console.log('🔵 updateQueryParams CALLED with:', params);
+    
+    this.setState({ queryParams: params }, () => {
+      // Automatically submit when params change
+      const { selectedQuery, queryParams } = this.state;
+      
+      console.log('=== UPDATE QUERY PARAMS ===');
+      console.log('Selected Query:', selectedQuery);
+      console.log('Query Params:', queryParams);
+      
+      // Check if all required fields are filled
+      const hasEmptyFields = Object.values(queryParams).some(value => 
+        value === '' || value === null || value === undefined
+      );
+
+      console.log('Has Empty Fields:', hasEmptyFields);
+      console.log('Params Length:', Object.keys(queryParams).length);
+
+      // Only submit if no empty fields and we have params
+      if (!hasEmptyFields && Object.keys(queryParams).length > 0) {
+        console.log('✅ SUBMITTING QUERY TO BACKEND');
+        console.log(`Submitting query: ${selectedQuery} with params: ${JSON.stringify(queryParams)}`);
+        this.props.onQuerySubmit(selectedQuery, queryParams);
+      } else {
+        console.log('❌ NOT SUBMITTING - Empty fields or no params');
+        console.log('Not submitting - some fields are empty');
+      }
+    });
   }
 
   render() {
@@ -115,7 +158,7 @@ export default class Query extends Component {
             className="w-full flex items-center justify-between bg-blue-50 border-2 border-blue-300 hover:border-blue-400 hover:bg-blue-100 rounded-lg px-6 py-4 transition duration-200 cursor-pointer"
           >
             <div className="flex-1">
-              {QueryComponent && <QueryComponent />}
+              {QueryComponent && <QueryComponent onParamsChange={this.updateQueryParams} />}
             </div>
             <svg 
               className="w-5 h-5 text-blue-500 flex-shrink-0 ml-4" 

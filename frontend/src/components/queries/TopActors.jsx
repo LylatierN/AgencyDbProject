@@ -4,13 +4,13 @@ export default class TopActors extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      number: '3'
+      n: '3'
     }
   }
 
   handleChange = (e) => {
-    this.setState({ number: e.target.value }, () => {
-      console.log('Number:', this.state.number)
+    this.setState({ n: e.target.value }, () => {
+      console.log('Number:', this.state.n)
     })
   }
 
@@ -20,7 +20,7 @@ export default class TopActors extends Component {
         <span className="text-lg text-gray-800">Top</span>
         <input
           type="number"
-          value={this.state.number}
+          value={this.state.n}
           onChange={this.handleChange}
           placeholder="10"
           min="1"

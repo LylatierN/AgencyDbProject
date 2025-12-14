@@ -4,13 +4,13 @@ export default class LeastJob extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      number: '3'
+      n: '3'
     }
   }
 
   handleChange = (e) => {
-    this.setState({ number: e.target.value }, () => {
-      console.log('Number:', this.state.number)
+    this.setState({ n: e.target.value }, () => {
+      console.log('Number:', this.state.n)
     })
   }
 
