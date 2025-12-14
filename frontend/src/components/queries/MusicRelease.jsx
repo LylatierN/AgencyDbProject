@@ -10,9 +10,24 @@ export default class MusicRelease extends Component {
     }
   }
 
+  componentDidMount() {
+    // Submit immediately with default date
+    console.log('🟢 MusicRelease componentDidMount - start_date:', this.state.start_date);
+    if (this.props.onParamsChange) {
+      console.log('🟢 MusicRelease calling onParamsChange with:', { start_date: this.state.start_date });
+      this.props.onParamsChange({ start_date: this.state.start_date });
+    } else {
+      console.log('🔴 MusicRelease - onParamsChange is not available!');
+    }
+  }
+
   handleStartDateChange = (e) => {
-    this.setState({ start_date: e.target.value }, () => {
+    const value = e.target.value;
+    this.setState({ start_date: value }, () => {
       console.log('Start Date:', this.state.start_date)
+      if (value) {
+        this.props.onParamsChange({ start_date: value });
+      }
     })
   }
 

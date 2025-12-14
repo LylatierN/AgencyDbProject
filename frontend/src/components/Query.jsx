@@ -115,8 +115,8 @@ export default class Query extends Component {
       console.log('Has Empty Fields:', hasEmptyFields);
       console.log('Params Length:', Object.keys(queryParams).length);
 
-      // Only submit if no empty fields and we have params
-      if (!hasEmptyFields && Object.keys(queryParams).length > 0) {
+      // Submit if no empty fields (allows empty params object for queries without parameters)
+      if (!hasEmptyFields) {
         console.log('✅ SUBMITTING QUERY TO BACKEND');
         console.log(`Submitting query: ${selectedQuery} with params: ${JSON.stringify(queryParams)}`);
         this.props.onQuerySubmit(selectedQuery, queryParams);

@@ -12,7 +12,12 @@ export default class EmployeesByPosition extends Component {
   }
 
   handleChange = (e) => {
-    this.setState({ personnel_types: e.target.value })
+    const value = e.target.value;
+    this.setState({ personnel_types: value }, () => {
+      if (value) {
+        this.props.onParamsChange({ personnel_types: [value] });
+      }
+    });
   }
 
   render() {

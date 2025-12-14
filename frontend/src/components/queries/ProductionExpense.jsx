@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 
 export default class ProductionExpense extends Component {
+  componentDidMount() {
+    // Trigger submission immediately since no params needed
+    this.props.onParamsChange({});
+  }
+
   render() {
     return (
       <div className="flex items-center flex-wrap gap-2">

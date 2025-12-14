@@ -26,6 +26,9 @@ services:
       timeout: 10s
       retries: 5
 
+    networks:
+      - agency_network
+
   # ----------------------------------------------------
   # 2. APPLICATION SERVICE (FastAPI)
   # ----------------------------------------------------

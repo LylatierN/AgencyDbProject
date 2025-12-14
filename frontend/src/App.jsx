@@ -64,7 +64,7 @@ function App() {
           response = await api.free_employees_by_role(queryParams);
           break;
         case 'location_available':
-          response = await api.location_use(queryParams);
+          response = await api.location_on_dates(queryParams);
           break;
         case 'top_actors':
           response = await api.top_actors(queryParams);
@@ -104,7 +104,7 @@ function App() {
       setFilteredCount(response.counted); // Set filtered count to total
     } catch (error) {
       console.error('Error fetching data:', error);
-      alert('Failed to fetch data. Make sure the backend is running on port 8000.');
+      alert(`Failed to fetch data: ${error.message}\n\nMake sure the backend is running on port 8000.`);
     }
   };
 

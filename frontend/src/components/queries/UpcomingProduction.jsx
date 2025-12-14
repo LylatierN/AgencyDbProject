@@ -12,8 +12,12 @@ export default class UpcomingProduction extends Component {
   }
 
   handleDateChange = (e) => {
-    this.setState({ current_datetime: e.target.value }, () => {
+    const value = e.target.value;
+    this.setState({ current_datetime: value }, () => {
       console.log('Date:', this.state.current_datetime)
+      if (value) {
+        this.props.onParamsChange({ current_datetime: value });
+      }
     })
   }
 

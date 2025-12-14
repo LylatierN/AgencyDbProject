@@ -6,11 +6,25 @@ export default class PerformerPartner extends Component {
     this.state = {
       performer_name: ''
     }
+    this.typingTimer = null;
   }
 
   handleNameChange = (e) => {
-    this.setState({ performer_name: e.target.value }, () => {
+    const value = e.target.value;
+    this.setState({ performer_name: value }, () => {
       console.log('Performer Name:', this.state.performer_name)
+      
+      // Clear existing timer
+      if (this.typingTimer) {
+        clearTimeout(this.typingTimer);
+      }
+      
+      // Set new timer to submit after user stops typing for 500ms
+      if (value) {
+        this.typingTimer = setTimeout(() => {
+          this.props.onParamsChange({ performer_name: value });
+        }, 500);
+      }
     })
   }
 

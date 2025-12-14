@@ -10,9 +10,20 @@ export default class LocationUse extends Component {
     }
   }
 
+  componentDidMount() {
+    // Submit immediately with default date
+    if (this.props.onParamsChange) {
+      this.props.onParamsChange({ target_date: this.state.target_date });
+    }
+  }
+
   handleDayChange = (e) => {
-    this.setState({ target_date: e.target.value }, () => {
+    const value = e.target.value;
+    this.setState({ target_date: value }, () => {
       console.log('Day:', this.state.target_date)
+      if (value) {
+        this.props.onParamsChange({ target_date: value });
+      }
     })
   }
 

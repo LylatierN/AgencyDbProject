@@ -8,9 +8,20 @@ export default class LeastJob extends Component {
     }
   }
 
+  componentDidMount() {
+    // Submit immediately with default value
+    if (this.props.onParamsChange) {
+      this.props.onParamsChange({ n: this.state.n });
+    }
+  }
+
   handleChange = (e) => {
-    this.setState({ n: e.target.value }, () => {
+    const value = e.target.value;
+    this.setState({ n: value }, () => {
       console.log('Number:', this.state.n)
+      if (value) {
+        this.props.onParamsChange({ n: value });
+      }
     })
   }
 
