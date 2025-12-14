@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar.jsx';
 import Query from './components/Query.jsx';
 import Results from './components/Result.jsx';
 import { useState } from 'react';
+import * as api from './api.js';
 
 function App() {
   // All data from backend
@@ -41,26 +42,42 @@ function App() {
     
     setResultsData(filtered);
     setFilteredCount(filtered.length);
-  };  // This function will be called by Query component when user submits
+  };
+
+  // This function will be called by Query component when user submits
   const handleQuerySubmit = async (queryType, queryParams) => {
     console.log('Query submitted:', queryType, queryParams);
-    // TODO: Replace with actual API call to get new data
-    // const response = await fetch(`http://localhost:8000/api/${queryType}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(queryParams)
-    // });
-
-
-    // the data sent as list of parameters (for just ask focus)
-
-    // const data = await response.json();
-    // setAllData(data.data);  // Store all data
-    // setResultsData(data.data);  // Display all data
-    // setNumData(data.counted);
-    // setAllKey(data.keys);
+    
+    try {
+      let response;
+      
+      // Route query to appropriate API endpoint
+      switch(queryType) {
+        case 'personnel':
+          response = await api.queryPersonnel(queryParams);
+          break;
+        case 'rental':
+          response = await api.queryRental(queryParams);
+          break;
+        case 'schedule':
+          response = await api.queryScheduleActivity(queryParams);
+          break;
+        case 'stats':
+          response = await api.queryGeneralStats(queryParams);
+          break;
+        default:
+          console.error('Unknown query type:', queryType);
+          return;
+      }
+      
+      setAllData(response.data || response);
+      setResultsData(response.data || response);
+      setNumData((response.data || response).length);
+      setAllKey(Object.keys((response.data || response)[0] || {}));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('Failed to fetch data. Make sure the backend is running.');
+    }
   };
 
   return (
