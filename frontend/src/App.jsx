@@ -51,32 +51,60 @@ function App() {
     try {
       let response;
       
-      // Route query to appropriate API endpoint
+      // Route query to appropriate API endpoint based on query type
       switch(queryType) {
-        case 'personnel':
-          response = await api.queryPersonnel(queryParams);
+        case 'employees_by_position':
+          response = await api.queryEmployeesByPosition(queryParams.position, queryParams.limit);
           break;
-        case 'rental':
-          response = await api.queryRental(queryParams);
+        case 'activities_on_dates':
+          response = await api.queryActivityCounts(queryParams.startDt, queryParams.endDt);
           break;
-        case 'schedule':
-          response = await api.queryScheduleActivity(queryParams);
+        case 'employees_available':
+          response = await api.queryAvailableEmployees(queryParams.startDt, queryParams.endDt, queryParams.types);
           break;
-        case 'stats':
-          response = await api.queryGeneralStats(queryParams);
+        case 'location_available':
+          response = await api.queryAvailableLocations(queryParams.startDt, queryParams.endDt);
+          break;
+        case 'top_actors':
+          response = await api.queryTopActors(queryParams.limit);
+          break;
+        case 'least_job':
+          response = await api.queryLeastJobActors(queryParams.limit);
+          break;
+        case 'employees_assign':
+          response = await api.queryPersonnelAssignments(queryParams.nameSearch, queryParams.titleSearch);
+          break;
+        case 'music_release':
+          response = await api.queryMusicProductions(queryParams.startDate);
+          break;
+        case 'location_use':
+          response = await api.queryLocationsInUse(queryParams.targetDate);
+          break;
+        case 'performer_partner':
+          response = await api.queryAllPerformers();
+          break;
+        case 'upcoming_production':
+          response = await api.queryUpcomingSchedules();
+          break;
+        case 'all_performer':
+          response = await api.queryAllPerformers();
           break;
         default:
           console.error('Unknown query type:', queryType);
+          alert('Unknown query type');
           return;
       }
       
-      setAllData(response.data || response);
-      setResultsData(response.data || response);
-      setNumData((response.data || response).length);
-      setAllKey(Object.keys((response.data || response)[0] || {}));
+      // The response should be APIResponse format with count, key, and data
+      setAllData(response.data || []);
+      setResultsData(response.data || []);
+      setNumData(response.count || response.data?.length || 0);
+      setAllKey(response.key || Object.keys((response.data || [{}])[0]));
+      
+      console.log('Data loaded successfully:', response.count, 'records');
     } catch (error) {
       console.error('Error fetching data:', error);
-      alert('Failed to fetch data. Make sure the backend is running.');
+      alert('Failed to fetch data. Make sure the backend is running. Check console for details.');
     }
   };
 

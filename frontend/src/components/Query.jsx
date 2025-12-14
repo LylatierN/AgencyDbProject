@@ -115,7 +115,7 @@ export default class Query extends Component {
             className="w-full flex items-center justify-between bg-blue-50 border-2 border-blue-300 hover:border-blue-400 hover:bg-blue-100 rounded-lg px-6 py-4 transition duration-200 cursor-pointer"
           >
             <div className="flex-1">
-              {QueryComponent && <QueryComponent />}
+              {QueryComponent && <QueryComponent onQuerySubmit={this.props.onQuerySubmit} />}
             </div>
             <svg 
               className="w-5 h-5 text-blue-500 flex-shrink-0 ml-4" 

@@ -1,16 +1,16 @@
-DROP DATABASE IF EXISTS ProjectDB;
-CREATE DATABASE ProjectDB;
-USE ProjectDB;
+DROP DATABASE IF EXISTS agency_db;
+CREATE DATABASE agency_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE agency_db;
 
 -- ===============================
 -- BASE TABLES
 -- ===============================
 
 CREATE TABLE personnel (
-    personnel_id INTEGER PRIMARY KEY,
-    name VARCHAR(50),
-    email VARCHAR(50),
-    phone VARCHAR(50),
+    personnel_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100),
+    phone VARCHAR(20),
     personnel_type VARCHAR(50),
     contract_hire_date DATE,
     contract_expiration_date DATE
@@ -25,16 +25,16 @@ CREATE TABLE performer (
 );
 
 CREATE TABLE partner_personnel (
-    partner_id INTEGER PRIMARY KEY,
-    name VARCHAR(50),
+    partner_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
     service_type VARCHAR(50),
     personnel_id INTEGER,
     contact_hire_date DATE,
     contact_expiration_date DATE,
-    contract_amount NUMERIC,
+    contract_amount DECIMAL(10,2),
     contact_info TEXT,
     CONSTRAINT fk_partner_personnel
-        FOREIGN KEY (personnel_id) REFERENCES personnel(personnel_id)
+        FOREIGN KEY (personnel_id) REFERENCES personnel(personnel_id) ON DELETE SET NULL
 );
 
 -- ===============================
@@ -42,14 +42,14 @@ CREATE TABLE partner_personnel (
 -- ===============================
 
 CREATE TABLE production (
-    production_id INTEGER PRIMARY KEY,
-    title VARCHAR(50),
+    production_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
     production_type VARCHAR(50),
     contract_hire_date DATE,
     contract_expiration_date DATE,
     partner_id INTEGER,
     CONSTRAINT fk_production_partner
-        FOREIGN KEY (partner_id) REFERENCES partner_personnel(partner_id)
+        FOREIGN KEY (partner_id) REFERENCES partner_personnel(partner_id) ON DELETE SET NULL
 );
 
 CREATE TABLE generalproduction (
@@ -71,14 +71,14 @@ CREATE TABLE eventproduction (
 );
 
 CREATE TABLE productionexpense (
-    expense_id INTEGER PRIMARY KEY,
+    expense_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     production_id INTEGER,
     expense_type VARCHAR(50),
-    amount NUMERIC,
+    amount DECIMAL(10,2),
     expense_date DATE,
     description TEXT,
     CONSTRAINT fk_productionexpense_production
-        FOREIGN KEY (production_id) REFERENCES production(production_id)
+        FOREIGN KEY (production_id) REFERENCES production(production_id) ON DELETE CASCADE
 );
 
 CREATE TABLE personnelassignment (
@@ -92,21 +92,21 @@ CREATE TABLE personnelassignment (
 
 
 CREATE TABLE productionschedule (
-    prod_schedule_id INTEGER PRIMARY KEY,
-    production_id INTEGER,
-    personnel_id INTEGER,
+    prod_schedule_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    production_id INTEGER NOT NULL,
+    personnel_id INTEGER NOT NULL,
     start_dt DATETIME,
     end_dt DATETIME,
     taskname VARCHAR(50),
     location VARCHAR(50),
-    FOREIGN KEY (production_id) REFERENCES production(production_id),
-    FOREIGN KEY (personnel_id) REFERENCES personnel(personnel_id)
+    FOREIGN KEY (production_id) REFERENCES production(production_id) ON DELETE CASCADE,
+    FOREIGN KEY (personnel_id) REFERENCES personnel(personnel_id) ON DELETE CASCADE
 );
 
 
 CREATE TABLE rentalplace (
-    place_id INTEGER PRIMARY KEY,
-    name VARCHAR(50),
+    place_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
     address TEXT,
     type VARCHAR(50),
     capacity INTEGER,
@@ -114,22 +114,22 @@ CREATE TABLE rentalplace (
 );
 
 CREATE TABLE rentalusage (
-    usage_id INTEGER PRIMARY KEY,
-    production_id INTEGER,
-    place_id INTEGER,
+    usage_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    production_id INTEGER NOT NULL,
+    place_id INTEGER NOT NULL,
     start_time DATETIME,
     end_time DATETIME,
-    FOREIGN KEY (production_id) REFERENCES production(production_id),
-    FOREIGN KEY (place_id) REFERENCES rentalplace(place_id)
+    FOREIGN KEY (production_id) REFERENCES production(production_id) ON DELETE CASCADE,
+    FOREIGN KEY (place_id) REFERENCES rentalplace(place_id) ON DELETE CASCADE
 );
 
 CREATE TABLE rentalpayment (
-    payment_id INTEGER PRIMARY KEY,
-    usage_id INTEGER,
-    daily_rate NUMERIC,
-    total_cost NUMERIC,
+    payment_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    usage_id INTEGER NOT NULL,
+    daily_rate DECIMAL(10,2),
+    total_cost DECIMAL(10,2),
     payment_date DATE,
-    FOREIGN KEY (usage_id) REFERENCES rentalusage(usage_id)
+    FOREIGN KEY (usage_id) REFERENCES rentalusage(usage_id) ON DELETE CASCADE
 );
 
 -- ===============================
