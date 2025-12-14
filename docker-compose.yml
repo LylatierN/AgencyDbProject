@@ -5,10 +5,10 @@ services:
   db:
     image: mysql:8.0
     container_name: agency_mysql
-    
+
     env_file:
       - .env
-      
+
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS} 
       MYSQL_DATABASE: ${DB_NAME}
@@ -19,13 +19,13 @@ services:
 
     ports:
       - "3307:3306"
-    
+
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${DB_USER}", "-p${DB_PASS}"]
       interval: 5s
       timeout: 10s
       retries: 5
-      
+
   # ----------------------------------------------------
   # 2. APPLICATION SERVICE (FastAPI)
   # ----------------------------------------------------
@@ -34,22 +34,50 @@ services:
       context: ./backend 
       dockerfile: Dockerfile # Looks for backend/Dockerfile
     container_name: agency_fastapi
-    
+
     env_file:
       - .env
 
     environment:
       DB_HOST: db 
-    
+
     depends_on:
       db:
         condition: service_healthy 
 
     ports:
       - "8000:8000"
+    
+    networks:
+      - agency_network
+
+  # ----------------------------------------------------
+  # 3. FRONTEND SERVICE (React)
+  # ----------------------------------------------------
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: agency_frontend
+    
+    environment:
+      REACT_APP_API_URL: http://api:8000
+    
+    depends_on:
+      - api
+    
+    ports:
+      - "3000:3000"
+    
+    networks:
+      - agency_network
 
 # ----------------------------------------------------
 # 3. Docker Volumes
 # ----------------------------------------------------
 volumes:
   db_data:
+
+networks:
+  agency_network:
+    driver: bridge
