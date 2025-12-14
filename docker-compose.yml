@@ -47,37 +47,9 @@ services:
 
     ports:
       - "8000:8000"
-    
-    networks:
-      - agency_network
-
-  # ----------------------------------------------------
-  # 3. FRONTEND SERVICE (React)
-  # ----------------------------------------------------
-  web:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: agency_frontend
-    
-    environment:
-      REACT_APP_API_URL: http://api:8000
-    
-    depends_on:
-      - api
-    
-    ports:
-      - "3000:3000"
-    
-    networks:
-      - agency_network
 
 # ----------------------------------------------------
-# 4. Docker Volumes and Networks
+# 3. Docker Volumes
 # ----------------------------------------------------
 volumes:
   db_data:
-
-networks:
-  agency_network:
-    driver: bridge
