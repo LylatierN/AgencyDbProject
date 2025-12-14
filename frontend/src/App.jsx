@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar.jsx';
 import Query from './components/Query.jsx';
 import Results from './components/Result.jsx';
 import { useState } from 'react';
+import * as api from './api.js';
 
 function App() {
   // All data from backend
@@ -42,25 +43,69 @@ function App() {
     setResultsData(filtered);
     setFilteredCount(filtered.length);
   };  // This function will be called by Query component when user submits
+
+
+  // This function will be called by Query component when user submits
   const handleQuerySubmit = async (queryType, queryParams) => {
     console.log('Query submitted:', queryType, queryParams);
-    // TODO: Replace with actual API call to get new data
-    // const response = await fetch(`http://localhost:8000/api/${queryType}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(queryParams)
-    // });
-
-
-    // the data sent as list of parameters (for just ask focus)
-
-    // const data = await response.json();
-    // setAllData(data.data);  // Store all data
-    // setResultsData(data.data);  // Display all data
-    // setNumData(data.counted);
-    // setAllKey(data.keys);
+    
+    try {
+      let response;
+      
+      // Route query to appropriate API endpoint
+      switch(queryType) {
+        case 'employees_by_position':
+          response = await api.employees_by_position(queryParams);
+          break;
+        case 'activities_on_dates':
+          response = await api.activities_on_dates(queryParams);
+          break;
+        case 'employees_available':
+          response = await api.free_employees_by_role(queryParams);
+          break;
+        case 'location_available':
+          response = await api.location_use(queryParams);
+          break;
+        case 'top_actors':
+          response = await api.top_actors(queryParams);
+          break;
+        case 'least_job':
+          response = await api.least_job(queryParams);
+          break;
+        case 'employees_assign':
+          response = await api.employees_assign(queryParams);
+          break;
+        case 'music_release':
+          response = await api.music_release(queryParams);
+          break;
+        case 'location_use':
+          response = await api.location_use(queryParams);
+          break;
+        case 'performer_partner':
+          response = await api.performer_partner(queryParams);
+          break;
+        case 'upcoming_production':
+          response = await api.upcoming_production(queryParams);
+          break;
+        case 'all_performer':
+          response = await api.all_performer(queryParams);
+          break;
+        default:
+          console.error('Unknown query type:', queryType);
+          alert('Unknown query type: ' + queryType);
+          return;
+      }
+      console.log('API Response:', response);
+      // Update state with response data (using your backend structure)
+      setAllData(response.data);          // Store all data
+      setResultsData(response.data);      // Display all data
+      setNumData(response.counted);       // Store count from backend
+      setAllKey(response.keys);           // Store keys from backend
+      setFilteredCount(response.counted); // Set filtered count to total
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('Failed to fetch data. Make sure the backend is running on port 8000.');
+    }
   };
 
   return (

@@ -27,12 +27,10 @@ export default class Query extends Component {
         'employees_by_position': {
           label: 'Find all employees in a position',
           component: EmployeesByPosition,
-          apis: '/personnel/by-type'
         },
         'activities_on_dates': {
           label: 'Find amount of activities each types of activities between certain dates',
           component: ActivitiesOnDates,
-          apis: '/schedule/activity/counts'
         },
         'employees_available': {
           label: 'Find available employees by role in certain dates',
