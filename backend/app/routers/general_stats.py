@@ -232,17 +232,14 @@ def get_partners_by_performer_name(
     Retrieves all external partners and their service types that are contracted
     with the specified personnel, provided that personnel is a Performer.
     """
-    personnel_id = (
+
+    personnel_id_stmt = (
         select(Personnel.personnel_id)
         .join(Performer, Personnel.personnel_id == Performer.personnel_id)
         .where(Personnel.name == performer_name)
-    ).scalar_one_or_none()
+    )
 
-    if personnel_id is None:
-        raise HTTPException(
-            status_code=404, 
-            detail=f"Performer '{performer_name}' not found or is not listed as a Performer."
-        )
+    personnel_id = db.execute(personnel_id_stmt).scalar_one_or_none()
 
     stmt = (
         select(
@@ -256,7 +253,7 @@ def get_partners_by_performer_name(
     )
 
     result = db.execute(stmt).all()
-    
+
     data_list = [
         {
             "partner_name": r.partner_name,

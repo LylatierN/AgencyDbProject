@@ -84,6 +84,9 @@ function App() {
         case 'performer_partner':
           response = await api.performer_partner(queryParams);
           break;
+        case 'production_expense':
+          response = await api.production_expense(queryParams);
+          break;
         case 'upcoming_production':
           response = await api.upcoming_production(queryParams);
           break;
