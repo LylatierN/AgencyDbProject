@@ -84,14 +84,14 @@ function App() {
         case 'performer_partner':
           response = await api.performer_partner(queryParams);
           break;
-        case 'production_expense':
-          response = await api.production_expense(queryParams);
-          break;
         case 'upcoming_production':
           response = await api.upcoming_production(queryParams);
           break;
         case 'all_performer':
           response = await api.all_performer(queryParams);
+          break;
+        case 'production_expense':
+          response = await api.production_expense(queryParams);
           break;
         default:
           console.error('Unknown query type:', queryType);
@@ -102,9 +102,15 @@ function App() {
       // Update state with response data (using your backend structure)
       setAllData(response.data);          // Store all data
       setResultsData(response.data);      // Display all data
-      setNumData(response.counted);       // Store count from backend
-      setAllKey(response.keys);           // Store keys from backend
-      setFilteredCount(response.counted); // Set filtered count to total
+      
+      // console.log('=== RESULT DATA ===');
+      // console.log('Data:', response.data);
+      // console.log('Count:', response.count);
+      // console.log('Keys:', response.key);
+      
+      setNumData(response.count);       // Store count from backend
+      setAllKey(response.key);           // Store keys from backend
+      setFilteredCount(response.count); // Set filtered count to total
     } catch (error) {
       console.error('Error fetching data:', error);
       alert(`Failed to fetch data: ${error.message}\n\nMake sure the backend is running on port 8000.`);

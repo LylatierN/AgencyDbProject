@@ -8,14 +8,14 @@ export default class Results extends Component {
         };
     }
 
-    copyToClipboard = (data) => {
+    copyToClipboard = (data, index) => {
         // Format data as "key: value" pairs
         const text = Object.entries(data)
             .map(([key, value]) => `${key}: ${value}`)
             .join(',\n');
         
         navigator.clipboard.writeText(text).then(() => {
-            this.setState({ copiedId: data.id });
+            this.setState({ copiedId: index });
             // Reset after 2 seconds
             setTimeout(() => {
                 this.setState({ copiedId: null });
@@ -23,22 +23,30 @@ export default class Results extends Component {
         });
     }
 
-    dataBlock(data) {
-        const isCopied = this.state.copiedId === data.id;
+    dataBlock(data, index) {
+        // console.log('=== DATA BLOCK ===');
+        // console.log('Index:', index);
+        // console.log('Data object:', data);
+        // console.log('Data keys:', Object.keys(data));
+        // console.log('Data entries:', Object.entries(data));
+        
+        const isCopied = this.state.copiedId === index;
         
         return (
             <div className="p-4 bg-white rounded-lg shadow-md mb-4 relative group cursor-pointer hover:shadow-lg transition-shadow"
-                 onClick={() => this.copyToClipboard(data)}>
-                <p className="text-gray-800"><span className="font-semibold">id:</span> {data.id}</p>
-                <p className="text-gray-800"><span className="font-semibold">name:</span> {data.name}</p>
-                <p className="text-gray-800"><span className="font-semibold">value:</span> {data.value}</p>
+                 onClick={() => this.copyToClipboard(data, index)}>
+                {Object.entries(data).map(([key, value]) => (
+                    <p key={key} className="text-gray-800">
+                        <span className="font-semibold">{key}:</span> {value}
+                    </p>
+                ))}
                 
                 {/* Copy button - appears on hover */}
                 <button
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
                     onClick={(e) => {
                         e.stopPropagation();
-                        this.copyToClipboard(data);
+                        this.copyToClipboard(data, index);
                     }}
                 >
                     {isCopied ? '✓ Copied!' : 'Copy'}
@@ -49,6 +57,12 @@ export default class Results extends Component {
 
     render() {
         const { data = [] } = this.props; // Get data from props
+        
+        // console.log('=== RESULT COMPONENT RENDER ===');
+        // console.log('Data received in props:', data);
+        // console.log('Data length:', data.length);
+        // console.log('Data type:', typeof data);
+        // console.log('Is array?:', Array.isArray(data));
         
         return (
             <div className="h-full bg-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col">
@@ -62,8 +76,8 @@ export default class Results extends Component {
                         </div>
                     ) : (
                         data.map((item, index) => (
-                            <div key={item.id || index}>
-                                {this.dataBlock(item)}
+                            <div key={index}>
+                                {this.dataBlock(item, index)}
                             </div>
                         ))
                     )}

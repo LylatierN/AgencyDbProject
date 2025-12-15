@@ -12,12 +12,10 @@ import PerformerPartner from './queries/PerformerPartner'
 import UpcomingProduction from './queries/UpcomingProduction'
 import AllPerformer from './queries/AllPerformer'
 
-// console.log('🚀 Query.jsx FILE LOADED - Version with logging');
-
 export default class Query extends Component {
   constructor(props) {
     super(props)
-    console.log('🏗️ Query component CONSTRUCTOR called');
+    console.log('🏗️ Query component CONSTRUCTOR called: ver 1.3');
     this.state = {
       selectedQuery: '',
       isSelecting: true,
@@ -79,7 +77,7 @@ export default class Query extends Component {
   handleSelectChange = (e) => {
     const selectedValue = e.target.value;
     console.log('🎯 QUERY SELECTED:', selectedValue);
-    console.log('Query Label:', this.state.queries[selectedValue]?.label);
+    // console.log('Query Label:', this.state.queries[selectedValue]?.label);
     
     this.setState({
       selectedQuery: selectedValue,
@@ -103,9 +101,9 @@ export default class Query extends Component {
       // Automatically submit when params change
       const { selectedQuery, queryParams } = this.state;
       
-      console.log('=== UPDATE QUERY PARAMS ===');
-      console.log('Selected Query:', selectedQuery);
-      console.log('Query Params:', queryParams);
+      // console.log('=== UPDATE QUERY PARAMS ===');
+      // console.log('Selected Query:', selectedQuery);
+      // console.log('Query Params:', queryParams);
       
       // Check if all required fields are filled
       const hasEmptyFields = Object.values(queryParams).some(value => 
@@ -117,11 +115,11 @@ export default class Query extends Component {
 
       // Submit if no empty fields (allows empty params object for queries without parameters)
       if (!hasEmptyFields) {
-        console.log('✅ SUBMITTING QUERY TO BACKEND');
+        // console.log('✅ SUBMITTING QUERY TO BACKEND');
         console.log(`Submitting query: ${selectedQuery} with params: ${JSON.stringify(queryParams)}`);
         this.props.onQuerySubmit(selectedQuery, queryParams);
       } else {
-        console.log('❌ NOT SUBMITTING - Empty fields or no params');
+        // console.log('❌ NOT SUBMITTING - Empty fields or no params');
         console.log('Not submitting - some fields are empty');
       }
     });
