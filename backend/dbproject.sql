@@ -243,17 +243,17 @@ INSERT INTO personnel (personnel_id, name, email, phone, personnel_type, contrac
 -- More Actors/Actresses for "Top 3" and "Least Jobs" queries
 (21, 'Robert Den.', 'bob@taxi.com', '555-0501', 'Actor', '2021-01-01', '2025-01-01'),
 (22, 'Al Pac.', 'al@godfather.com', '555-0502', 'Actor', '2021-02-01', '2025-02-01'),
-(23, 'Julia Rob.', 'julia@pretty.com', '555-0503', 'Actress', '2022-01-01', '2026-01-01'),
-(24, 'Emma Sto.', 'emma@lalaland.com', '555-0504', 'Actress', '2023-01-01', '2027-01-01'),
+(23, 'Julia Rob.', 'julia@pretty.com', '555-0503', 'Actor', '2022-01-01', '2026-01-01'),
+(24, 'Emma Sto.', 'emma@lalaland.com', '555-0504', 'Actor', '2023-01-01', '2027-01-01'),
 (25, 'Chris Hem.', 'chris@thor.com', '555-0505', 'Actor', '2022-05-01', '2025-05-01'),
 (26, 'Ryan Gos.', 'ryan@ken.com', '555-0506', 'Actor', '2023-01-01', '2026-01-01'),
-(27, 'Zendaya C.', 'zen@dune.com', '555-0507', 'Actress', '2023-06-01', '2027-01-01'),
+(27, 'Zendaya C.', 'zen@dune.com', '555-0507', 'Actor', '2023-06-01', '2027-01-01'),
 (28, 'Timothee C.', 'tim@dune.com', '555-0508', 'Actor', '2023-06-01', '2027-01-01'),
-(29, 'Viola D.', 'viola@fences.com', '555-0509', 'Actress', '2021-08-01', '2025-08-01'),
+(29, 'Viola D.', 'viola@fences.com', '555-0509', 'Actor', '2021-08-01', '2025-08-01'),
 (30, 'Denzel W.', 'denzel@equalizer.com', '555-0510', 'Actor', '2021-09-01', '2025-09-01'),
 -- Actors with NO jobs (for Query 6)
 (31, 'Silent Extra', 'silent@extra.com', '555-0601', 'Actor', '2024-01-01', '2024-12-31'),
-(32, 'Background B', 'bg@extra.com', '555-0602', 'Actress', '2024-01-01', '2024-12-31'),
+(32, 'Background B', 'bg@extra.com', '555-0602', 'Actor', '2024-01-01', '2024-12-31'),
 -- More Crew
 (33, 'Pat Makeup', 'pat@face.com', '555-0701', 'Makeup', '2023-01-01', '2026-01-01'),
 (34, 'Alex Costume', 'alex@sew.com', '555-0702', 'Costumer', '2023-01-01', '2026-01-01'),
@@ -292,10 +292,10 @@ INSERT INTO rentalplace (place_id, name, address, type, capacity, contact_info) 
 (10, 'Convention Center', '1 Expo Dr', 'Hall', 10000, 'expo@city.com');
 
 INSERT INTO partner_personnel (partner_id, name, service_type, personnel_id, contact_hire_date, contact_expiration_date, contract_amount, contact_info) VALUES 
-(100, 'Gourmet Catering', 'Food', 17, '2023-01-01', '2024-12-31', 50000.00, 'Kitchen HQ'),
-(101, 'Fast Logistics', 'Transport', 18, '2023-01-01', '2025-12-31', 75000.00, 'Fleet HQ'),
-(102, 'Bright Lights Inc', 'Lighting', 19, '2024-01-01', '2025-01-01', 30000.00, 'Warehouse A'),
-(103, 'Crystal Clear Audio', 'Sound', 20, '2023-06-01', '2024-06-01', 25000.00, 'Studio B'),
+(100, 'Gourmet Catering', 'Food', 17, '2023-01-01', '2026-12-31', 50000.00, 'Kitchen HQ'),
+(101, 'Fast Logistics', 'Transport', 18, '2023-01-01', '2026-12-31', 75000.00, 'Fleet HQ'),
+(102, 'Bright Lights Inc', 'Lighting', 19, '2024-01-01', '2026-01-01', 30000.00, 'Warehouse A'),
+(103, 'Crystal Clear Audio', 'Sound', 20, '2023-06-01', '2027-06-01', 25000.00, 'Studio B'),
 -- NEW PARTNERS
 (104, 'Firestar Pyros', 'Special FX', 39, '2024-01-01', '2026-01-01', 40000.00, 'Safe Zone 1'),
 (105, 'SafeGuard Security', 'Security', 40, '2023-01-01', '2025-01-01', 60000.00, 'Post 1'),

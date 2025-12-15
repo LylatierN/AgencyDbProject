@@ -4,7 +4,7 @@ from sqlalchemy import select, func, literal_column
 from datetime import datetime
 from typing import List, Dict, Any
 
-from ..models import Personnel, ProductionSchedule, PersonnelAssignment 
+from ..models import Personnel, ProductionSchedule, PersonnelAssignment
 from ..schemas import APIResponse
 from ..database import get_db
 
@@ -29,7 +29,8 @@ def list_personnel_by_type(
         ['Director', 'Costumer', 'Makeup', 'Actor'],
         description="List of personnel types to filter by."
     ),
-    limit: int = Query(10, ge=1, description="Maximum number of records to return.")
+    limit: int = Query(
+        100, ge=1, description="Maximum number of records to return.")
 ) -> Dict[str, Any]:
     """
     Retrieves a list of personnel filtered by their specified position/type.
@@ -44,7 +45,7 @@ def list_personnel_by_type(
         .limit(limit)
     )
     result = db.execute(stmt).all()
-    
+
     data_list = [
         {
             "personnel_id": r.personnel_id,
@@ -72,8 +73,10 @@ def list_personnel_by_type(
 )
 def get_available_personnel(
     db: Session = Depends(get_db),
-    start_dt: datetime = Query(..., description="Start datetime of the required availability period (e.g., 2024-02-10T09:00:00)."),
-    end_dt: datetime = Query(..., description="End datetime of the required availability period (e.g., 2024-02-10T12:00:00)."),
+    start_dt: datetime = Query(
+        ..., description="Start datetime of the required availability period (e.g., 2024-02-10T09:00:00)."),
+    end_dt: datetime = Query(
+        ..., description="End datetime of the required availability period (e.g., 2024-02-10T12:00:00)."),
     personnel_types: List[str] = Query(
         ['Actor', 'Crew'],
         description="Personnel types to check availability for."
@@ -104,7 +107,7 @@ def get_available_personnel(
         )
     )
     result = db.execute(stmt).all()
-    
+
     data_list = [
         {
             "personnel_id": r.personnel_id,
@@ -132,7 +135,8 @@ def get_available_personnel(
 )
 def get_top_n_actors_by_projects(
     db: Session = Depends(get_db),
-    n: int = Query(3, ge=1, description="The number of top actors/actresses to return.")
+    n: int = Query(
+        3, ge=1, description="The number of top actors/actresses to return.")
 ) -> Dict[str, Any]:
     """
     Calculates and returns the top `n` actors/actresses based on their total number of production assignments.
@@ -140,7 +144,8 @@ def get_top_n_actors_by_projects(
     stmt = (
         select(
             Personnel.name,
-            func.count(PersonnelAssignment.production_id).label("total_projects")
+            func.count(PersonnelAssignment.production_id).label(
+                "total_projects")
         )
         .join(PersonnelAssignment, Personnel.personnel_id == PersonnelAssignment.personnel_id)
         .where(Personnel.personnel_type.in_(['Actor', 'Actress']))
@@ -149,7 +154,7 @@ def get_top_n_actors_by_projects(
         .limit(n)
     )
     result = db.execute(stmt).all()
-    
+
     data_list = [
         {
             "name": r.name,
@@ -176,7 +181,8 @@ def get_top_n_actors_by_projects(
 )
 def get_least_n_actors_by_jobs(
     db: Session = Depends(get_db),
-    n: int = Query(5, ge=1, description="The number of actors/actresses with the least jobs to return.")
+    n: int = Query(
+        5, ge=1, description="The number of actors/actresses with the least jobs to return.")
 ) -> Dict[str, Any]:
     """
     Calculates and returns the least `n` actors/actresses based on their total number of production assignments, 
@@ -194,7 +200,7 @@ def get_least_n_actors_by_jobs(
         .limit(n)
     )
     result = db.execute(stmt).all()
-    
+
     data_list = [
         {
             "name": r.name,

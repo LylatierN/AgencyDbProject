@@ -6,7 +6,7 @@ export default class EmployeesByPosition extends Component {
     this.state = {
       personnel_types: '',
       positions: [
-        'Director','Costumer','Makeup','Actor', 'Singer','Dancer','Photographer','Editor','Writer','Producer','Cinematographer'
+        'Director','Costumer','Makeup','Actor', 'Singer','Dancer','Photographer','Editor','Writer','Producer','Manager'
       ]
     }
   }
