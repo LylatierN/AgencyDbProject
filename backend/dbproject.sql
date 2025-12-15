@@ -459,21 +459,20 @@ INSERT INTO rentalusage (usage_id, production_id, place_id, start_time, end_time
 -- =============================================
 
 INSERT INTO productionexpense (expense_id, production_id, expense_type, amount, expense_date, description) VALUES 
-(501, 10, 'Catering', 1200.50, '2023-01-15', 'Lunch'),
-(502, 10, 'Props', 500.00, '2023-01-20', 'Swords'),
-(503, 11, 'Sound', 5000.00, '2024-02-05', 'Speakers'),
-(504, 12, 'Costume', 3000.00, '2024-01-10', 'Dresses'),
-(505, 12, 'Makeup', 1500.00, '2024-01-11', 'Prosthetics'),
-(506, 13, 'VFX', 10000.00, '2025-02-01', 'CGI render'),
-(507, 19, 'Travel', 2000.00, '2024-09-01', 'Flights'),
+(800, 10, 'Catering', 1200.50, '2023-01-15', 'Lunch'),
+(801, 10, 'Props', 500.00, '2023-01-20', 'Swords'),
+(802, 11, 'Sound', 5000.00, '2024-02-05', 'Speakers'),
+(803, 12, 'Costume', 3000.00, '2024-01-10', 'Dresses'),
+(804, 12, 'Makeup', 1500.00, '2024-01-11', 'Prosthetics'),
+(805, 13, 'VFX', 10000.00, '2025-02-01', 'CGI render'),
+(806, 19, 'Travel', 2000.00, '2024-09-01', 'Flights'),
 -- NEW EXPENSES
-(508, 20, 'Pyrotechnics', 15000.00, '2024-06-01', 'Explosions'),
-(509, 21, 'Flowers', 800.00, '2023-03-14', 'Wedding Scene'),
-(510, 25, 'CGI', 50000.00, '2025-06-01', 'Monster render'),
-(511, 28, 'Catering', 4000.00, '2024-02-10', 'Champagne'),
-(512, 34, 'Marketing', 10000.00, '2024-01-01', 'Billboards'),
-(513, 39, 'Cars', 30000.00, '2025-06-15', 'Stunt cars purchase');
-
+(807, 20, 'Pyrotechnics', 15000.00, '2024-06-01', 'Explosions'),
+(808, 21, 'Flowers', 800.00, '2023-03-14', 'Wedding Scene'),
+(809, 25, 'CGI', 50000.00, '2025-06-01', 'Monster render'),
+(810, 28, 'Catering', 4000.00, '2024-02-10', 'Champagne'),
+(811, 34, 'Marketing', 10000.00, '2024-01-01', 'Billboards'),
+(812, 39, 'Cars', 30000.00, '2025-06-15', 'Stunt cars purchase');
 -- =============================================
 -- 1. NEW 2025 PRODUCTIONS (IDs 50-61)
 -- One major production per month to anchor the daily data
@@ -1379,6 +1378,498 @@ INSERT INTO productionschedule (prod_schedule_id, production_id, personnel_id, s
 (4018, 61, 9,  '2025-12-01 05:00:00', '2025-12-07 20:00:00', 'Makeup Chair', 'Dressing Rooms'),
 (4019, 61, 10, '2025-12-01 05:00:00', '2025-12-07 20:00:00', 'Prosthetics', 'Dressing Rooms'),
 (4020, 61, 18, '2025-12-01 06:00:00', '2025-12-07 23:00:00', 'Logistics Coord', 'Control Room');
+
+INSERT INTO productionschedule (prod_schedule_id, production_id, personnel_id, start_dt, end_dt, taskname, location) VALUES 
+-- DEC 2025 (Current Month Activities)
+(2560, 59, 37, '2025-12-01 09:00:00', '2025-12-05 17:00:00', 'Final Color Grade', 'Post Lab'),
+(2561, 59, 1, '2025-12-08 10:00:00', '2025-12-08 13:00:00', 'ADR Session', 'Studio C'),
+(2562, 60, 24, '2025-12-10 18:00:00', '2025-12-10 23:00:00', 'Award Ceremony', 'Royal Opera House'),
+(2563, 60, 40, '2025-12-10 16:00:00', '2025-12-11 02:00:00', 'Security Detail', 'Royal Opera House'),
+
+-- JAN 2026 (Q1 2026 - Targeting Production 55: Action Sequel & 511: Latin Rhythms Release)
+(2564, 55, 25, '2026-01-15 07:00:00', '2026-01-15 19:00:00', 'Stunt Filming', 'Warehouse District'),
+(2565, 55, 35, '2026-01-15 06:00:00', '2026-01-15 20:00:00', 'Directing', 'Warehouse District'),
+(2566, 55, 4, '2026-01-16 09:00:00', '2026-01-16 17:00:00', 'Costume Fitting', 'Wardrobe'),
+(2567, 511, 2, '2026-01-20 10:00:00', '2026-01-20 16:00:00', 'Music Video Shoot', 'Studio 54'),
+(2568, 511, 23, '2026-01-21 11:00:00', '2026-01-21 15:00:00', 'Photo Shoot', 'Studio 54'),
+
+-- FEB 2026 (Q1 2026 - Targeting Production 26: Space Opera)
+(2569, 26, 28, '2026-02-01 08:00:00', '2026-02-01 18:00:00', 'Green Screen Shoot', 'Studio 54'),
+(2570, 26, 27, '2026-02-01 08:00:00', '2026-02-01 18:00:00', 'Green Screen Shoot', 'Studio 54'),
+(2571, 26, 34, '2026-02-02 09:00:00', '2026-02-02 17:00:00', 'Costume Maintenance', 'Studio 54'),
+
+-- MAR 2026 (Q1 2026 - Targeting Production 25: Super Hero Team)
+(2572, 25, 15, '2026-03-10 10:00:00', '2026-03-10 12:00:00', 'Investor Pitch', 'Office'),
+(2573, 25, 25, '2026-03-20 07:00:00', '2026-03-20 17:00:00', 'Action Scene Blocking', 'Downtown Arena');
+
+-- =============================================
+-- ADDING 50 NEW PERSONNEL (IDs 41 - 90)
+-- =============================================
+INSERT INTO personnel (personnel_id, name, email, phone, personnel_type, contract_hire_date, contract_expiration_date) VALUES 
+(41, 'Maxine Taylor', 'max@studio.com', '555-1041', 'Actor', '2025-01-01', '2027-01-01'),
+(42, 'Leo Rodriguez', 'leo.r@film.com', '555-1042', 'Actor', '2025-02-01', '2027-02-01'),
+(43, 'Chloe Evans', 'chloe@actress.com', '555-1043', 'Actress', '2025-03-01', '2027-03-01'),
+(44, 'Sam Walker', 'sam@talent.com', '555-1044', 'Actor', '2025-04-01', '2027-04-01'),
+(45, 'Isabel Chen', 'isabel@tv.com', '555-1045', 'Actress', '2025-05-01', '2027-05-01'),
+(46, 'Ethan Bell', 'ethan@films.com', '555-1046', 'Actor', '2025-06-01', '2028-06-01'),
+(47, 'Ava Miller', 'ava@media.com', '555-1047', 'Actress', '2025-07-01', '2028-07-01'),
+(48, 'Noah King', 'noah@set.com', '555-1048', 'Actor', '2025-08-01', '2028-08-01'),
+(49, 'Mia Harris', 'mia@cinema.com', '555-1049', 'Actress', '2025-09-01', '2028-09-01'),
+(50, 'Liam Scott', 'liam@production.com', '555-1050', 'Actor', '2025-10-01', '2028-10-01'),
+(51, 'Maya Baker', 'maya@artist.com', '555-1051', 'Actress', '2025-11-01', '2028-11-01'),
+(52, 'Oscar Green', 'oscar@performance.com', '555-1052', 'Actor', '2025-12-01', '2028-12-01'),
+(53, 'Piper Hall', 'piper@stage.com', '555-1053', 'Actress', '2025-12-15', '2028-12-15'),
+(54, 'Quinn Clark', 'quinn@screen.com', '555-1054', 'Actor', '2025-12-20', '2028-12-20'),
+(55, 'Ruby Day', 'ruby@show.com', '555-1055', 'Actress', '2025-12-25', '2028-12-25'),
+(56, 'Sebastian Fox', 'seb@play.com', '555-1056', 'Actor', '2025-12-30', '2028-12-30'),
+(57, 'Talia Gray', 'talia@film.com', '555-1057', 'Actress', '2026-01-05', '2029-01-05'),
+(58, 'Victor Hunt', 'vic@set.com', '555-1058', 'Actor', '2026-01-10', '2029-01-10'),
+(59, 'Willow Ivy', 'willow@act.com', '555-1059', 'Actress', '2026-01-15', '2029-01-15'),
+(60, 'Xavier Jones', 'xav@scene.com', '555-1060', 'Actor', '2026-01-20', '2029-01-20'),
+(61, 'Yara Kim', 'yara@camera.com', '555-1061', 'Actress', '2026-01-25', '2029-01-25'),
+(62, 'Zane Lane', 'zane@sound.com', '555-1062', 'Actor', '2026-01-30', '2029-01-30'),
+(63, 'Adam Moore', 'adam@light.com', '555-1063', 'Actor', '2026-02-05', '2029-02-05'),
+(64, 'Bella Nash', 'bella@costume.com', '555-1064', 'Actress', '2026-02-10', '2029-02-10'),
+(65, 'Caleb Olson', 'caleb@prop.com', '555-1065', 'Actor', '2026-02-15', '2029-02-15'),
+(66, 'Dana Price', 'dana@stunt.com', '555-1066', 'Actress', '2026-02-20', '2029-02-20'),
+(67, 'Elias Reed', 'elias@edit.com', '555-1067', 'Actor', '2026-02-25', '2029-02-25'),
+(68, 'Fiona Stone', 'fiona@direct.com', '555-1068', 'Actress', '2026-03-01', '2029-03-01'),
+(69, 'Gavin Troy', 'gavin@produce.com', '555-1069', 'Actor', '2026-03-05', '2029-03-05'),
+(70, 'Hannah Vance', 'hannah@manage.com', '555-1070', 'Actress', '2026-03-10', '2029-03-10'),
+(71, 'Isaac West', 'isaac@design.com', '555-1071', 'Actor', '2026-03-15', '2029-03-15'),
+(72, 'Jada Young', 'jada@event.com', '555-1072', 'Actress', '2026-03-20', '2029-03-20'),
+(73, 'Kyle Zimmer', 'kyle@media.com', '555-1073', 'Actor', '2026-03-25', '2029-03-25'),
+(74, 'Lila Allen', 'lila@pr.com', '555-1074', 'Actress', '2026-03-30', '2029-03-30'),
+(75, 'Mark Brown', 'mark@safe.com', '555-1075', 'Actor', '2025-01-01', '2027-01-01'),
+(76, 'Nina Cook', 'nina@legal.com', '555-1076', 'Actress', '2025-02-01', '2027-02-01'),
+(77, 'Owen Dale', 'owen@finance.com', '555-1077', 'Actor', '2025-03-01', '2027-03-01'),
+(78, 'Phoebe Evans', 'phoebe@tech.com', '555-1078', 'Actress', '2025-04-01', '2027-04-01'),
+(79, 'Quentin Finn', 'quent@art.com', '555-1079', 'Actor', '2025-05-01', '2027-05-01'),
+(80, 'Rachel Gage', 'rach@music.com', '555-1080', 'Actress', '2025-06-01', '2028-06-01'),
+(81, 'Steve Hill', 'steve@writer.com', '555-1081', 'Actor', '2025-07-01', '2028-07-01'),
+(82, 'Tess Iyer', 'tess@design.com', '555-1082', 'Actress', '2025-08-01', '2028-08-01'),
+(83, 'Uri Jackson', 'uri@promo.com', '555-1083', 'Actor', '2025-09-01', '2028-09-01'),
+(84, 'Vicky Kent', 'vicky@sound.com', '555-1084', 'Actress', '2025-10-01', '2028-10-01'),
+(85, 'Will Lowe', 'will@stunts.com', '555-1085', 'Actor', '2025-11-01', '2028-11-01'),
+(86, 'Zara Morris', 'zara@costume.com', '555-1086', 'Actress', '2025-12-01', '2028-12-01'),
+(87, 'Allen Nash', 'allen@makeup.com', '555-1087', 'Actor', '2025-12-15', '2028-12-15'),
+(88, 'Beth Olson', 'beth@hair.com', '555-1088', 'Actress', '2025-12-20', '2028-12-20'),
+(89, 'Carl Price', 'carl@stage.com', '555-1089', 'Actor', '2025-12-25', '2028-12-25'),
+(90, 'Dora Quinn', 'dora@light.com', '555-1090', 'Actress', '2025-12-30', '2028-12-30');
+
+-- ADD CORRESPONDING PERFORMERS
+INSERT INTO performer (personnel_id, performance_type, agency) VALUES 
+(41, 'Dramatic Actor', 'Agency 1'), (42, 'Action Star', 'Agency 2'), (43, 'Comedic Actress', 'Agency 3'),
+(44, 'Voice Actor', 'Agency 4'), (45, 'TV Actress', 'Agency 5'), (46, 'Lead Actor', 'Agency 1'),
+(47, 'Supporting Actress', 'Agency 2'), (48, 'Method Actor', 'Agency 3'), (49, 'Dancer/Actress', 'Agency 4'),
+(50, 'Action Star', 'Agency 5'), (51, 'Lead Actress', 'Agency 1'), (52, 'Dramatic Actor', 'Agency 2'),
+(53, 'Comedic Actress', 'Agency 3'), (54, 'Musical Performer', 'Agency 4'), (55, 'Action Star', 'Agency 5'),
+(56, 'Dramatic Actor', 'Agency 1'), (57, 'Lead Actress', 'Agency 2'), (58, 'Supporting Actor', 'Agency 3'),
+(59, 'Voice Actress', 'Agency 4'), (60, 'Action Star', 'Agency 5'), (61, 'Model/Actress', 'Agency 1'),
+(62, 'Dramatic Actor', 'Agency 2'), (63, 'Comedic Actor', 'Agency 3'), (64, 'Dancer/Actress', 'Agency 4'),
+(65, 'Lead Actor', 'Agency 5'), (66, 'Supporting Actress', 'Agency 1'), (67, 'Method Actor', 'Agency 2'),
+(68, 'TV Actress', 'Agency 3'), (69, 'Action Star', 'Agency 4'), (70, 'Musical Performer', 'Agency 5');
+
+-- =============================================
+-- ADDING 50 NEW PRODUCTIONS (IDs 601 - 650)
+-- =============================================
+INSERT INTO production (production_id, title, production_type, contract_hire_date, contract_expiration_date, partner_id) VALUES 
+-- DECEMBER 2025 (Current Month)
+(601, 'Holiday Gala 2025', 'Event', '2025-10-01', '2025-12-25', 100), -- Catering
+(602, 'New Year Sci-Fi Teaser', 'General', '2025-08-01', '2026-01-30', 101), -- Transport
+(603, 'Winter Charity Concert', 'Event', '2025-11-01', '2025-12-31', 103), -- Sound
+(604, 'Gothic Horror Shoot', 'General', '2025-07-01', '2026-02-15', 106), -- Wardrobe
+(605, 'Year End Review Show', 'Event', '2025-10-01', '2025-12-30', 102), -- Lighting
+
+-- JANUARY 2026 (Q1)
+(606, 'Cyberpunk Movie 2', 'General', '2025-09-01', '2026-03-30', 104), -- FX
+(607, 'Historical Drama Pilot', 'General', '2025-10-01', '2026-04-30', 108), -- Construction
+(608, 'Comedy Tour Launch', 'Event', '2025-11-01', '2026-01-31', 100), -- Catering
+(609, 'Art Film Reshoots', 'General', '2025-12-01', '2026-02-28', 103), -- Sound
+(610, 'Winter Fashion Show', 'Event', '2025-11-01', '2026-01-31', 102), -- Lighting
+(611, 'Kids Fantasy Show', 'General', '2025-06-01', '2026-05-30', 106), -- Wardrobe
+(612, 'Crime Thriller Scene', 'General', '2025-09-01', '2026-03-30', 101), -- Transport
+
+-- FEBRUARY 2026 (Q1)
+(613, 'Superhero Montage', 'General', '2025-11-01', '2026-03-31', 104), -- FX
+(614, 'Romantic Web Series', 'General', '2025-12-01', '2026-04-30', 108), -- Construction
+(615, 'TED-style Talk Event', 'Event', '2026-01-01', '2026-02-28', 100), -- Catering
+(616, 'Indie Music Video', 'General', '2026-01-01', '2026-03-15', 103), -- Sound
+(617, 'The Oscars Viewing Party', 'Event', '2026-01-15', '2026-03-22', 102), -- Lighting
+(618, 'Western Desert Shoot', 'General', '2025-08-01', '2026-04-01', 106), -- Wardrobe
+
+-- MARCH 2026 (Q1)
+(619, 'Post-Apocalyptic Series', 'General', '2025-10-01', '2026-05-30', 101), -- Transport
+(620, 'Spring Dance Festival', 'Event', '2026-01-01', '2026-03-31', 107), -- Musicians
+(621, 'Horror Film 3 Trailer', 'General', '2025-12-01', '2026-04-30', 104), -- FX
+(622, 'Casting Call Event', 'Event', '2026-02-01', '2026-03-31', 100), -- Catering
+(623, 'Sci-Fi Soundtrack Mix', 'General', '2026-01-01', '2026-04-30', 103), -- Sound
+(624, 'Behind the Scenes Doc', 'General', '2025-12-01', '2026-05-30', 108), -- Construction
+
+-- EXTRA FILLER PRODUCTIONS (625-650)
+(625, 'Medieval Fantasy 5', 'General', '2026-03-01', '2027-03-01', 106), (626, 'Space Exploration Log', 'General', '2026-03-01', '2027-03-01', 101),
+(627, 'Silent Short Film', 'General', '2026-03-01', '2027-03-01', 102), (628, 'Road Trip Reality', 'General', '2026-03-01', '2027-03-01', 100),
+(629, 'Vampire Diaries Reboot', 'General', '2026-03-01', '2027-03-01', 104), (630, 'Historical Romance', 'General', '2026-03-01', '2027-03-01', 108),
+(631, 'Nature Documentary 2', 'General', '2026-03-01', '2027-03-01', 103), (632, 'Standup Special', 'General', '2026-03-01', '2027-03-01', 100),
+(633, 'Political Thriller', 'General', '2026-03-01', '2027-03-01', 101), (634, 'Cult Classic Remake', 'General', '2026-03-01', '2027-03-01', 106),
+(635, 'Time Travel Movie', 'General', '2026-03-01', '2027-03-01', 102), (636, 'Family Sitcom Pilot', 'General', '2026-03-01', '2027-03-01', 103),
+(637, 'Disaster Movie', 'General', '2026-03-01', '2027-03-01', 104), (638, 'Fantasy Series', 'General', '2026-03-01', '2027-03-01', 108),
+(639, 'Musical Drama', 'General', '2026-03-01', '2027-03-01', 107), (640, 'Spy Action Movie', 'General', '2026-03-01', '2027-03-01', 105),
+(641, 'International Film Showcase', 'Event', '2026-03-01', '2026-04-30', 102), (642, 'Charity Marathon', 'Event', '2026-03-01', '2026-04-30', 100),
+(643, 'Esports Tournament Finals', 'Event', '2026-03-01', '2026-04-30', 103), (644, 'Wine Tasting & Auction', 'Event', '2026-03-01', '2026-04-30', 107),
+(645, 'Tech Product Launch', 'Event', '2026-03-01', '2026-04-30', 104), (646, 'Art Exhibition Opening', 'Event', '2026-03-01', '2026-04-30', 106),
+(647, 'Global Leadership Summit', 'Event', '2026-03-01', '2026-04-30', 101), (648, 'Food Truck Festival', 'Event', '2026-03-01', '2026-04-30', 108),
+(649, 'Standup Comedy Night', 'Event', '2026-03-01', '2026-04-30', 103), (650, 'University Graduation', 'Event', '2026-03-01', '2026-04-30', 100);
+
+-- 2.1 NEW GENERAL PRODUCTIONS
+INSERT INTO generalproduction (production_id, genre, plan_release_quarter, plan_release_year) VALUES 
+(602, 'Sci-Fi', 2, 2026), (604, 'Horror', 2, 2026), (606, 'Action', 3, 2026), (607, 'History', 4, 2026),
+(609, 'Art House', 2, 2026), (611, 'Fantasy', 3, 2026), (612, 'Thriller', 3, 2026), (613, 'Action', 4, 2026),
+(614, 'Romance', 4, 2026), (616, 'Music', 2, 2026), (618, 'Western', 4, 2026), (619, 'Sci-Fi', 1, 2027),
+(621, 'Horror', 1, 2027), (623, 'Music', 2, 2027), (624, 'Documentary', 3, 2026),
+(625, 'Fantasy', 1, 2027), (626, 'Sci-Fi', 2, 2027), (627, 'Art House', 3, 2027), (628, 'Reality', 4, 2027),
+(629, 'Horror', 1, 2028), (630, 'Romance', 2, 2028), (631, 'Documentary', 3, 2028), (632, 'Comedy', 4, 2028),
+(633, 'Thriller', 1, 2029), (634, 'Action', 2, 2029), (635, 'Sci-Fi', 3, 2029), (636, 'Comedy', 4, 2029),
+(637, 'Action', 1, 2030), (638, 'Fantasy', 2, 2030), (639, 'Music', 3, 2030), (640, 'Spy Action Movie', 4, 2030);
+
+-- 2.2 NEW EVENT PRODUCTIONS
+INSERT INTO eventproduction (production_id, event_type, location, audience_capacity) VALUES 
+(601, 'Gala', 'Grand Theater', 1500), (603, 'Concert', 'Concert Hall', 1000), (605, 'Talk Show', 'Studio 54', 100),
+(608, 'Comedy Show', 'Underground Club', 300), (610, 'Runway', 'Convention Center', 5000),
+(615, 'Conference', 'Convention Center', 2000), (617, 'Gala', 'Grand Theater', 1000), 
+(620, 'Festival', 'City Park Amphitheater', 4000), (622, 'Casting', 'Studio 54', 50),
+(641, 'Festival', 'Grand Theater', 1500), (642, 'Sport', 'City Park Amphitheater', 5000),
+(643, 'Tournament', 'Downtown Arena', 10000), (644, 'Gala', 'Concert Hall', 500),
+(645, 'Expo', 'Convention Center', 3000), (646, 'Exhibition', 'Studio 54', 200),
+(647, 'Conference', 'Convention Center', 8000), (648, 'Festival', 'City Park Amphitheater', 5000),
+(649, 'Comedy Show', 'Underground Club', 250), (650, 'Ceremony', 'Grand Theater', 1800);
+
+-- =============================================
+-- PERSONNEL ASSIGNMENTS (12 people per P601-P650)
+-- =============================================
+INSERT INTO personnelassignment (personnel_id, production_id, role_title) VALUES
+-- P601: Holiday Gala 2025 (Event) - DEC 2025
+(41, 601, 'Host'), (42, 601, 'Performer'), (43, 601, 'Hostess'), (44, 601, 'Narrator'), (45, 601, 'Singer'), (46, 601, 'Dancer'), (47, 601, 'Event Manager'), (48, 601, 'Security Chief'), (13, 601, 'Creative Director'), (15, 601, 'Executive Producer'), (17, 601, 'Catering Manager'), (19, 601, 'Lighting Tech'),
+
+-- P602: New Year Sci-Fi Teaser (General) - DEC 2025
+(50, 602, 'Lead Actor'), (51, 602, 'Lead Actress'), (52, 602, 'Supporting Actor'), (53, 602, 'Supporting Actress'), (54, 602, 'Stunt Double'), (48, 602, 'Director'), (15, 602, 'Producer'), (9, 602, 'Makeup Artist'), (11, 602, 'Costumer'), (13, 602, 'Second Unit Director'), (18, 602, 'Logistics Manager'), (20, 602, 'Sound Designer'),
+
+-- P603: Winter Charity Concert (Event) - DEC 2025
+(55, 603, 'Lead Singer'), (56, 603, 'Guitarist'), (57, 603, 'Host'), (58, 603, 'Security'), (59, 603, 'Backstage Manager'), (60, 603, 'Stage Hand'), (61, 603, 'Vocal Coach'), (62, 603, 'Sound Engineer'), (13, 603, 'Event Organizer'), (15, 603, 'Fundraising Lead'), (17, 603, 'Catering'), (19, 603, 'Lighting'),
+
+-- P604: Gothic Horror Shoot (General) - DEC 2025
+(63, 604, 'Lead Actor'), (64, 604, 'Lead Actress'), (65, 604, 'Creature Performer'), (66, 604, 'Stunt Coordinator'), (67, 604, 'Director'), (68, 604, 'Producer'), (69, 604, 'Writer'), (70, 604, 'Costumer'), (13, 604, 'VFX Supervisor'), (15, 604, 'Executive Producer'), (9, 604, 'SFX Makeup'), (20, 604, 'Sound Recordist'),
+
+-- P605: Year End Review Show (Event) - DEC 2025
+(71, 605, 'Host'), (72, 605, 'Co-Host'), (73, 605, 'Guest 1'), (74, 605, 'Guest 2'), (75, 605, 'Stage Manager'), (76, 605, 'Teleprompter Op'), (77, 605, 'Lighting Designer'), (78, 605, 'Technical Director'), (13, 605, 'Show Runner'), (15, 605, 'Segment Producer'), (17, 605, 'Catering'), (18, 605, 'Transport'),
+
+-- P606: Cyberpunk Movie 2 (General) - JAN 2026
+(41, 606, 'Lead Actor'), (42, 606, 'Supporting Actor'), (43, 606, 'Lead Actress'), (44, 606, 'Stunt Double'), (45, 606, 'Director'), (46, 606, 'Producer'), (47, 606, 'VFX Artist'), (48, 606, 'Costumer'), (13, 606, 'Action Director'), (15, 606, 'Executive Producer'), (9, 606, 'Makeup'), (19, 606, 'Lighting'),
+
+-- P607: Historical Drama Pilot (General) - JAN 2026
+(50, 607, 'Lead Actor'), (51, 607, 'Supporting Actress'), (52, 607, 'Director'), (53, 607, 'Producer'), (54, 607, 'Set Designer'), (55, 607, 'Historical Consultant'), (56, 607, 'Costume Supervisor'), (57, 607, 'Makeup Artist'), (13, 607, 'Script Supervisor'), (15, 607, 'Financier'), (17, 607, 'Catering'), (20, 607, 'Sound'),
+
+-- P608: Comedy Tour Launch (Event) - JAN 2026
+(58, 608, 'Comedian 1'), (59, 608, 'Comedian 2'), (60, 608, 'Opener'), (61, 608, 'Tour Manager'), (62, 608, 'Security'), (63, 608, 'Sound Tech'), (64, 608, 'Lighting Tech'), (65, 608, 'Stage Manager'), (13, 608, 'Creative Director'), (15, 608, 'Promoter'), (18, 608, 'Logistics'), (19, 608, 'Electrician'),
+
+-- P609: Art Film Reshoots (General) - JAN 2026
+(66, 609, 'Lead Actress'), (67, 609, 'Lead Actor'), (68, 609, 'Director'), (69, 609, 'Producer'), (70, 609, 'D.O.P.'), (71, 609, 'Gaffer'), (72, 609, 'Grip'), (73, 609, 'Sound Mixer'), (13, 609, 'Executive Producer'), (15, 609, 'Line Producer'), (9, 609, 'Makeup'), (11, 609, 'Costume'),
+
+-- P610: Winter Fashion Show (Event) - JAN 2026
+(74, 610, 'Model 1'), (75, 610, 'Model 2'), (76, 610, 'Stylist'), (77, 610, 'Designer'), (78, 610, 'Backstage Mgr'), (79, 610, 'Lighting Tech'), (80, 610, 'DJ'), (81, 610, 'Security'), (13, 610, 'Event Planner'), (15, 610, 'Sponsorship Mgr'), (17, 610, 'Catering'), (20, 610, 'Sound'),
+
+-- P611: Kids Fantasy Show (General) - FEB 2026
+(82, 611, 'Lead Actor'), (83, 611, 'Lead Actress'), (84, 611, 'Puppeteer'), (85, 611, 'Voice Actor'), (86, 611, 'Director'), (87, 611, 'Producer'), (88, 611, 'Costume Designer'), (89, 611, 'Set Builder'), (13, 611, 'Showrunner'), (15, 611, 'Executive Producer'), (9, 611, 'Makeup'), (19, 611, 'Lighting'),
+
+-- P612: Crime Thriller Scene (General) - FEB 2026
+(90, 612, 'Lead Actor'), (41, 612, 'Supporting Actor'), (42, 612, 'Director'), (43, 612, 'Producer'), (44, 612, 'Camera Op'), (45, 612, 'Editor'), (46, 612, 'Transport Mgr'), (47, 612, 'Security'), (13, 612, 'Stunt Coordinator'), (15, 612, 'Line Producer'), (17, 612, 'Catering'), (20, 612, 'Sound'),
+
+-- P613: Superhero Montage (General) - FEB 2026
+(48, 613, 'Hero 1'), (49, 613, 'Hero 2'), (50, 613, 'Director'), (51, 613, 'Producer'), (52, 613, 'VFX Artist'), (53, 613, 'Stunt Double'), (54, 613, 'Costumer'), (55, 613, 'SFX Lead'), (13, 613, 'Action Director'), (15, 613, 'Executive Producer'), (9, 613, 'Makeup'), (11, 613, 'Costume'),
+
+-- P614: Romantic Web Series (General) - MAR 2026
+(56, 614, 'Lead Actor'), (57, 614, 'Lead Actress'), (58, 614, 'Director'), (59, 614, 'Producer'), (60, 614, 'Writer'), (61, 614, 'Editor'), (62, 614, 'Set Builder'), (63, 614, 'Gaffer'), (13, 614, 'Executive Producer'), (15, 614, 'Marketing Lead'), (18, 614, 'Transport'), (19, 614, 'Lighting'),
+
+-- P615: TED-style Talk Event (Event) - FEB 2026
+(64, 615, 'Speaker 1'), (65, 615, 'Speaker 2'), (66, 615, 'Host'), (67, 615, 'Event Planner'), (68, 615, 'Security'), (69, 615, 'A/V Tech'), (70, 615, 'Lighting Tech'), (71, 615, 'Catering Manager'), (13, 615, 'Creative Director'), (15, 615, 'Sponsorship Mgr'), (17, 615, 'Catering'), (20, 615, 'Sound'),
+
+-- P616: Indie Music Video (General) - MAR 2026
+(72, 616, 'Artist'), (73, 616, 'Backup Dancer'), (74, 616, 'Director'), (75, 616, 'Producer'), (76, 616, 'D.O.P.'), (77, 616, 'Choreographer'), (78, 616, 'Costumer'), (79, 616, 'Sound Engineer'), (13, 616, 'Executive Producer'), (15, 616, 'Line Producer'), (9, 616, 'Makeup'), (18, 616, 'Transport'),
+
+-- P617: The Oscars Viewing Party (Event) - MAR 2026
+(80, 617, 'Host'), (81, 617, 'Co-Host'), (82, 617, 'Guest 1'), (83, 617, 'Guest 2'), (84, 617, 'Event Manager'), (85, 617, 'Security'), (86, 617, 'Lighting Tech'), (87, 617, 'Catering Manager'), (13, 617, 'Creative Director'), (15, 617, 'VIP Liaison'), (17, 617, 'Catering'), (19, 617, 'Lighting'),
+
+-- P618: Western Desert Shoot (General) - MAR 2026
+(88, 618, 'Lead Actor'), (89, 618, 'Lead Actress'), (90, 618, 'Director'), (41, 618, 'Producer'), (42, 618, 'Stunt Coordinator'), (43, 618, 'Costumer'), (44, 618, 'Armorer'), (45, 618, 'Set Builder'), (13, 618, 'Executive Producer'), (15, 618, 'Line Producer'), (9, 618, 'Makeup'), (20, 618, 'Sound'),
+
+-- P619: Post-Apocalyptic Series (General) - MAR 2026
+(46, 619, 'Lead Actor'), (47, 619, 'Lead Actress'), (48, 619, 'Director'), (49, 619, 'Producer'), (50, 619, 'VFX Supervisor'), (51, 619, 'Costumer'), (52, 619, 'Makeup'), (53, 619, 'Transport Mgr'), (13, 619, 'Executive Producer'), (15, 619, 'Line Producer'), (18, 619, 'Transport'), (19, 619, 'Lighting'),
+
+-- P620: Spring Dance Festival (Event) - MAR 2026
+(54, 620, 'Dancer 1'), (55, 620, 'Dancer 2'), (56, 620, 'Choreographer'), (57, 620, 'Stage Manager'), (58, 620, 'Security'), (59, 620, 'Sound Tech'), (60, 620, 'Lighting Tech'), (61, 620, 'Ticket Master'), (13, 620, 'Event Organizer'), (15, 620, 'Sponsorship Mgr'), (17, 620, 'Catering'), (20, 620, 'Sound'),
+
+-- Assignments for P621-P650 (Ensuring 10+ personnel)
+(62, 621, 'Director'), (63, 621, 'Producer'), (64, 621, 'Lead Actress'), (65, 621, 'Stuntman'), (66, 621, 'Costumer'), (67, 621, 'Makeup'), (68, 621, 'Sound'), (69, 621, 'Light'), (70, 621, 'Transport'), (71, 621, 'Catering'), (72, 621, 'Security'), (73, 621, 'VFX Artist'),
+(74, 622, 'Casting Director'), (75, 622, 'Producer'), (76, 622, 'Manager'), (77, 622, 'Interviewer'), (78, 622, 'A/V Tech'), (79, 622, 'Security'), (80, 622, 'Host'), (81, 622, 'Assistant'), (82, 622, 'Makeup'), (83, 622, 'Costume'), (84, 622, 'Sound'), (85, 622, 'Lighting'),
+(86, 623, 'Sound Mixer'), (87, 623, 'Producer'), (88, 623, 'Engineer'), (89, 623, 'Composer'), (90, 623, 'Artist'), (41, 623, 'Manager'), (42, 623, 'Assistant'), (43, 623, 'Publicist'), (44, 623, 'Legal'), (45, 623, 'Finance'), (46, 623, 'Transport'), (47, 623, 'Security'),
+(48, 624, 'Director'), (49, 624, 'Producer'), (50, 624, 'Camera Op'), (51, 624, 'Editor'), (52, 624, 'Narrator'), (53, 624, 'Sound'), (54, 624, 'Transport'), (55, 624, 'Security'), (56, 624, 'Costume'), (57, 624, 'Makeup'), (58, 624, 'Catering'), (59, 624, 'Lighting'),
+(60, 625, 'Lead Actor'), (61, 625, 'Lead Actress'), (62, 625, 'Director'), (63, 625, 'Producer'), (64, 625, 'Costumer'), (65, 625, 'Makeup'), (66, 625, 'VFX'), (67, 625, 'Stunt'), (68, 625, 'Sound'), (69, 625, 'Light'), (70, 625, 'Transport'), (71, 625, 'Catering'),
+(72, 626, 'Lead Actor'), (73, 626, 'Director'), (74, 626, 'Producer'), (75, 626, 'VFX'), (76, 626, 'Costume'), (77, 626, 'Makeup'), (78, 626, 'Sound'), (79, 626, 'Light'), (80, 626, 'Transport'), (81, 626, 'Catering'), (82, 626, 'Security'), (83, 626, 'Writer'),
+(84, 627, 'Lead Actor'), (85, 627, 'Lead Actress'), (86, 627, 'Director'), (87, 627, 'Producer'), (88, 627, 'Costume'), (89, 627, 'Makeup'), (90, 627, 'Sound'), (41, 627, 'Light'), (42, 627, 'Transport'), (43, 627, 'Catering'), (44, 627, 'Security'), (45, 627, 'Editor'),
+(46, 628, 'Host'), (47, 628, 'Producer'), (48, 628, 'Camera Op'), (49, 628, 'Sound'), (50, 628, 'Transport'), (51, 628, 'Security'), (52, 628, 'Makeup'), (53, 628, 'Costume'), (54, 628, 'Gaffer'), (55, 628, 'Grip'), (56, 628, 'Driver'), (57, 628, 'Assistant'),
+(58, 629, 'Lead Actor'), (59, 629, 'Lead Actress'), (60, 629, 'Director'), (61, 629, 'Producer'), (62, 629, 'SFX'), (63, 629, 'Costume'), (64, 629, 'Makeup'), (65, 629, 'Sound'), (66, 629, 'Light'), (67, 629, 'Transport'), (68, 629, 'Catering'), (69, 629, 'Security'),
+(70, 630, 'Lead Actor'), (71, 630, 'Lead Actress'), (72, 630, 'Director'), (73, 630, 'Producer'), (74, 630, 'Costume'), (75, 630, 'Makeup'), (76, 630, 'Sound'), (77, 630, 'Light'), (78, 630, 'Transport'), (79, 630, 'Catering'), (80, 630, 'Security'), (81, 630, 'Writer'),
+(82, 631, 'Narrator'), (83, 631, 'Director'), (84, 631, 'Producer'), (85, 631, 'Camera Op'), (86, 631, 'Sound'), (87, 631, 'Editor'), (88, 631, 'Transport'), (89, 631, 'Security'), (90, 631, 'Researcher'), (41, 631, 'Assistant'), (42, 631, 'Gaffer'), (43, 631, 'Grip'),
+(44, 632, 'Comedian'), (45, 632, 'Director'), (46, 632, 'Producer'), (47, 632, 'Sound'), (48, 632, 'Light'), (49, 632, 'Stage Manager'), (50, 632, 'Security'), (51, 632, 'Catering'), (52, 632, 'Transport'), (53, 632, 'Makeup'), (54, 632, 'Costume'), (55, 632, 'Writer'),
+(56, 633, 'Lead Actor'), (57, 633, 'Lead Actress'), (58, 633, 'Director'), (59, 633, 'Producer'), (60, 633, 'Security'), (61, 633, 'Transport'), (62, 633, 'Sound'), (63, 633, 'Light'), (64, 633, 'Costume'), (65, 633, 'Makeup'), (66, 633, 'Writer'), (67, 633, 'Advisor'),
+(68, 634, 'Lead Actor'), (69, 634, 'Lead Actress'), (70, 634, 'Director'), (71, 634, 'Producer'), (72, 634, 'Stunt'), (73, 634, 'VFX'), (74, 634, 'Costume'), (75, 634, 'Makeup'), (76, 634, 'Sound'), (77, 634, 'Light'), (78, 634, 'Transport'), (79, 634, 'Security'),
+(80, 635, 'Lead Actor'), (81, 635, 'Lead Actress'), (82, 635, 'Director'), (83, 635, 'Producer'), (84, 635, 'VFX'), (85, 635, 'Costume'), (86, 635, 'Makeup'), (87, 635, 'Sound'), (88, 635, 'Light'), (89, 635, 'Transport'), (90, 635, 'Security'), (41, 635, 'Writer'),
+(42, 636, 'Lead Actor'), (43, 636, 'Lead Actress'), (44, 636, 'Director'), (45, 636, 'Producer'), (46, 636, 'Writer'), (47, 636, 'Costume'), (48, 636, 'Makeup'), (49, 636, 'Sound'), (50, 636, 'Light'), (51, 636, 'Catering'), (52, 636, 'Transport'), (53, 636, 'Security'),
+(54, 637, 'Lead Actor'), (55, 637, 'Lead Actress'), (56, 637, 'Director'), (57, 637, 'Producer'), (58, 637, 'VFX'), (59, 637, 'Stunt'), (60, 637, 'Costume'), (61, 637, 'Makeup'), (62, 637, 'Sound'), (63, 637, 'Light'), (64, 637, 'Transport'), (65, 637, 'Security'),
+(66, 638, 'Lead Actor'), (67, 638, 'Lead Actress'), (68, 638, 'Director'), (69, 638, 'Producer'), (70, 638, 'Costume'), (71, 638, 'Makeup'), (72, 638, 'VFX'), (73, 638, 'Sound'), (74, 638, 'Light'), (75, 638, 'Transport'), (76, 638, 'Security'), (77, 638, 'Writer'),
+(78, 639, 'Lead Singer'), (79, 639, 'Dancer'), (80, 639, 'Director'), (81, 639, 'Producer'), (82, 639, 'Costume'), (83, 639, 'Makeup'), (84, 639, 'Sound'), (85, 639, 'Light'), (86, 639, 'Transport'), (87, 639, 'Catering'), (88, 639, 'Security'), (89, 639, 'Choreographer'),
+(90, 640, 'Lead Actor'), (41, 640, 'Lead Actress'), (42, 640, 'Director'), (43, 640, 'Producer'), (44, 640, 'Stunt'), (45, 640, 'Armorer'), (46, 640, 'Costume'), (47, 640, 'Makeup'), (48, 640, 'Sound'), (49, 640, 'Light'), (50, 640, 'Transport'), (51, 640, 'Security'),
+(52, 641, 'Event Manager'), (53, 641, 'Host'), (54, 641, 'Curator'), (55, 641, 'Security'), (56, 641, 'Catering'), (57, 641, 'Sound'), (58, 641, 'Light'), (59, 641, 'Transport'), (60, 641, 'Projectionist'), (61, 641, 'Publicist'), (62, 641, 'Assistant'), (63, 641, 'Director'),
+(64, 642, 'Host'), (65, 642, 'Runner'), (66, 642, 'Security'), (67, 642, 'Medic'), (68, 642, 'Catering'), (69, 642, 'Sound'), (70, 642, 'Light'), (71, 642, 'Transport'), (72, 642, 'Volunteer Mgr'), (73, 642, 'Logistics'), (74, 642, 'Producer'), (75, 642, 'Director'),
+(76, 643, 'Caster'), (77, 643, 'Commentator'), (78, 643, 'Security'), (79, 643, 'A/V Tech'), (80, 643, 'Lighting'), (81, 643, 'Sound'), (82, 643, 'Transport'), (83, 643, 'Catering'), (84, 643, 'Producer'), (85, 643, 'Director'), (86, 643, 'Technician'), (87, 643, 'Manager'),
+(88, 644, 'Sommelier'), (89, 644, 'Auctioneer'), (90, 644, 'Host'), (41, 644, 'Catering'), (42, 644, 'Security'), (43, 644, 'Sound'), (44, 644, 'Light'), (45, 644, 'Transport'), (46, 644, 'Event Planner'), (47, 644, 'Assistant'), (48, 644, 'Producer'), (49, 644, 'Director'),
+(50, 645, 'Speaker'), (51, 645, 'Host'), (52, 645, 'Security'), (53, 645, 'A/V Tech'), (54, 645, 'Lighting'), (55, 645, 'Sound'), (56, 645, 'Transport'), (57, 645, 'Catering'), (58, 645, 'Technician'), (59, 645, 'Producer'), (60, 645, 'Director'), (61, 645, 'Manager'),
+(62, 646, 'Curator'), (63, 646, 'Artist'), (64, 646, 'Security'), (65, 646, 'Catering'), (66, 646, 'Sound'), (67, 646, 'Light'), (68, 646, 'Transport'), (69, 646, 'Host'), (70, 646, 'Event Planner'), (71, 646, 'Assistant'), (72, 646, 'Producer'), (73, 646, 'Director'),
+(74, 647, 'Speaker'), (75, 647, 'Host'), (76, 647, 'Security'), (77, 647, 'A/V Tech'), (78, 647, 'Lighting'), (79, 647, 'Sound'), (80, 647, 'Transport'), (81, 647, 'Catering'), (82, 647, 'Technician'), (83, 647, 'Producer'), (84, 647, 'Director'), (85, 647, 'Manager'),
+(86, 648, 'Vendor'), (87, 648, 'Host'), (88, 648, 'Security'), (89, 648, 'Catering'), (90, 648, 'Sound'), (41, 648, 'Light'), (42, 648, 'Transport'), (43, 648, 'Vendor Mgr'), (44, 648, 'Assistant'), (45, 648, 'Producer'), (46, 648, 'Director'), (47, 648, 'Manager'),
+(48, 649, 'Comedian'), (49, 649, 'Host'), (50, 649, 'Security'), (51, 649, 'Sound'), (52, 649, 'Light'), (53, 649, 'Catering'), (54, 649, 'Transport'), (55, 649, 'Stage Manager'), (56, 649, 'Producer'), (57, 649, 'Director'), (58, 649, 'Writer'), (59, 649, 'Assistant'),
+(60, 650, 'Speaker'), (61, 650, 'Host'), (62, 650, 'Security'), (63, 650, 'Catering'), (64, 650, 'Sound'), (65, 650, 'Light'), (66, 650, 'Transport'), (67, 650, 'Event Planner'), (68, 650, 'Assistant'), (69, 650, 'Producer'), (70, 650, 'Director'), (71, 650, 'Technician');
+
+-- =============================================
+-- PRODUCTION SCHEDULES (IDs 3000 - 3040)
+-- Focused on DECEMBER 2025 (Current) and Q1 2026
+-- =============================================
+INSERT INTO productionschedule (prod_schedule_id, production_id, personnel_id, start_dt, end_dt, taskname, location) VALUES 
+-- DECEMBER 2025 (Current Month)
+(3000, 601, 41, '2025-12-20 18:00:00', '2025-12-20 23:00:00', 'Dress Rehearsal', 'Grand Theater'),
+(3001, 601, 47, '2025-12-24 10:00:00', '2025-12-24 16:00:00', 'Setup & Final Prep', 'Grand Theater'),
+(3002, 602, 50, '2025-12-18 07:00:00', '2025-12-18 19:00:00', 'Green Screen Shoot', 'Studio 54'),
+(3003, 602, 51, '2025-12-19 09:00:00', '2025-12-19 12:00:00', 'ADR Session', 'Post Lab'),
+(3004, 603, 55, '2025-12-28 17:00:00', '2025-12-28 23:00:00', 'Sound Check & Concert', 'Concert Hall'),
+(3005, 604, 63, '2025-12-16 08:00:00', '2025-12-16 18:00:00', 'Scene 1: Mansion Interior', 'Location'),
+(3006, 604, 64, '2025-12-17 07:00:00', '2025-12-17 19:00:00', 'Scene 2: Forest Shoot', 'Location'),
+(3007, 605, 71, '2025-12-30 14:00:00', '2025-12-30 20:00:00', 'Live Taping', 'Studio 54'),
+
+-- JANUARY 2026 (Q1)
+(3008, 606, 41, '2026-01-10 06:00:00', '2026-01-10 18:00:00', 'Explosion Stunt', 'Warehouse District'),
+(3009, 606, 43, '2026-01-11 09:00:00', '2026-01-11 17:00:00', 'Close-ups & Dialogue', 'Studio 54'),
+(3010, 607, 50, '2026-01-20 07:00:00', '2026-01-20 19:00:00', 'Battle Scene Filming', 'Sunset Ranch'),
+(3011, 607, 51, '2026-01-21 09:00:00', '2026-01-21 17:00:00', 'Interior Dialogue', 'Location'),
+(3012, 608, 58, '2026-01-29 18:00:00', '2026-01-29 23:00:00', 'Performance 1', 'Underground Club'),
+(3013, 609, 66, '2026-01-15 10:00:00', '2026-01-15 14:00:00', 'Pickup Shots', 'Location'),
+(3014, 610, 74, '2026-01-28 16:00:00', '2026-01-28 22:00:00', 'Runway Show', 'Convention Center'),
+
+-- FEBRUARY 2026 (Q1)
+(3015, 611, 82, '2026-02-10 08:00:00', '2026-02-10 16:00:00', 'Puppet Rehearsal', 'Studio 54'),
+(3016, 611, 83, '2026-02-11 09:00:00', '2026-02-11 17:00:00', 'Vocal Recording', 'Sound Lab'),
+(3017, 612, 90, '2026-02-20 20:00:00', '2026-02-21 04:00:00', 'Night Shoot: Car Scene', 'Warehouse District'),
+(3018, 613, 48, '2026-02-28 07:00:00', '2026-02-28 17:00:00', 'Flying Sequence Shoot', 'Studio 54'),
+(3019, 614, 57, '2026-02-14 10:00:00', '2026-02-14 15:00:00', 'Valentine Scene', 'Location'),
+(3020, 615, 64, '2026-02-25 09:00:00', '2026-02-25 18:00:00', 'Main Conference', 'Convention Center'),
+
+-- MARCH 2026 (Q1)
+(3021, 616, 72, '2026-03-05 13:00:00', '2026-03-05 23:00:00', 'Video Shoot', 'Location'),
+(3022, 617, 80, '2026-03-22 17:00:00', '2026-03-22 23:59:00', 'Live Event Hosting', 'Grand Theater'),
+(3023, 618, 88, '2026-03-10 06:00:00', '2026-03-10 18:00:00', 'Final Duel Scene', 'Sunset Ranch'),
+(3024, 619, 46, '2026-03-28 08:00:00', '2026-03-28 18:00:00', 'Location Shoot', 'Warehouse District'),
+(3025, 620, 54, '2026-03-20 15:00:00', '2026-03-20 23:00:00', 'Performance Night 1', 'Amphitheater'),
+
+-- Scheduling for remaining productions (621-650) in Q1 2026 or later for data variety
+(3026, 621, 62, '2026-02-15 10:00:00', '2026-02-15 16:00:00', 'Trailer Shoot', 'Studio 54'),
+(3027, 622, 74, '2026-03-15 09:00:00', '2026-03-15 17:00:00', 'Casting Interviews', 'Studio 54'),
+(3028, 623, 86, '2026-03-20 10:00:00', '2026-03-20 18:00:00', 'Mixing Session', 'Sound Lab'),
+(3029, 624, 48, '2026-03-25 08:00:00', '2026-03-25 17:00:00', 'Interview Day', 'Office'),
+(3030, 625, 60, '2026-04-10 07:00:00', '2026-04-10 19:00:00', 'Action Sequence', 'Location'),
+(3031, 626, 72, '2026-04-20 09:00:00', '2026-04-20 17:00:00', 'Zero-G Shoot', 'Studio 54'),
+(3032, 627, 84, '2026-05-01 10:00:00', '2026-05-01 16:00:00', 'Street Scene', 'Location'),
+(3033, 628, 46, '2026-05-10 09:00:00', '2026-05-10 17:00:00', 'Road Trip Start', 'Location'),
+(3034, 629, 58, '2026-06-01 20:00:00', '2026-06-02 04:00:00', 'Night Feeding Scene', 'Location'),
+(3035, 630, 70, '2026-06-15 08:00:00', '2026-06-15 18:00:00', 'Period Piece Shoot', 'Location'),
+(3036, 631, 82, '2026-07-01 07:00:00', '2026-07-01 19:00:00', 'Wildlife Filming', 'Location'),
+(3037, 632, 44, '2026-07-10 20:00:00', '2026-07-10 23:00:00', 'Standup Taping', 'Underground Club'),
+(3038, 633, 56, '2026-08-01 08:00:00', '2026-08-01 18:00:00', 'Office Scene', 'Location'),
+(3039, 634, 68, '2026-08-15 09:00:00', '2026-08-15 17:00:00', 'Fight Choreography', 'Studio 54'),
+(3040, 635, 80, '2026-09-01 08:00:00', '2026-09-01 18:00:00', 'Future City Scene', 'Location');
+
+-- =============================================
+-- PRODUCTION EXPENSES (IDs 500 - 700)
+-- =============================================
+INSERT INTO productionexpense (expense_id, production_id, expense_type, amount, expense_date, description) VALUES 
+-- P601-P620: 4 expenses each
+(500, 601, 'Catering', 15000.00, '2025-12-24', 'Holiday meal service'), (501, 601, 'Lighting', 5000.00, '2025-12-24', 'Uplighting and stage lighting'), (502, 601, 'Security', 8000.00, '2025-12-25', 'Event security staff'), (503, 601, 'Venue Rental', 25000.00, '2025-12-26', 'Grand Theater Rental Fee'),
+(504, 602, 'VFX Cost', 50000.00, '2025-12-30', 'Visual effects outsourcing'), (505, 602, 'Equipment Rental', 12000.00, '2025-12-28', 'Camera and lens package'), (506, 602, 'Transport', 7000.00, '2026-01-05', 'Equipment transport'), (507, 602, 'Personnel Salary', 80000.00, '2026-01-10', 'Actor salaries for shoot'),
+(508, 603, 'Artist Fees', 30000.00, '2025-12-30', 'Headliner fee'), (509, 603, 'Sound Eq Rental', 10000.00, '2025-12-31', 'PA system rental'), (510, 603, 'Promotion', 5000.00, '2025-12-01', 'Online ads'), (511, 603, 'Venue Rental', 18000.00, '2026-01-02', 'Concert Hall Fee'),
+(512, 604, 'Costume Budget', 20000.00, '2026-01-15', 'Historical costumes'), (513, 604, 'Set Construction', 15000.00, '2026-01-05', 'Interior set build'), (514, 604, 'SFX Makeup', 10000.00, '2026-01-20', 'Special effects makeup'), (515, 604, 'Location Fees', 7000.00, '2026-01-25', 'Mansion rental'),
+(516, 605, 'Lighting Rig', 6000.00, '2025-12-28', 'Studio lighting rental'), (517, 605, 'Catering', 4000.00, '2025-12-30', 'Refreshments for crew'), (518, 605, 'Host Fee', 15000.00, '2026-01-05', 'Main host compensation'), (519, 605, 'Studio Rental', 5000.00, '2025-12-31', 'Studio 54 rental'),
+(520, 606, 'Pyrotechnics', 25000.00, '2026-01-20', 'Explosion effects'), (521, 606, 'VFX Software', 10000.00, '2026-01-01', 'License fee'), (522, 606, 'Stunt Team', 30000.00, '2026-01-25', 'Stunt performers salary'), (523, 606, 'Location Fees', 15000.00, '2026-01-30', 'City permits'),
+(524, 607, 'Costumes', 45000.00, '2026-01-10', 'Period wardrobe purchase'), (525, 607, 'Set Building', 25000.00, '2026-01-05', 'Castle exterior build'), (526, 607, 'Catering', 8000.00, '2026-01-15', 'On-set meals'), (527, 607, 'Transport', 5000.00, '2026-01-20', 'Horse transport'),
+(528, 608, 'Comedian Fees', 40000.00, '2026-01-31', 'Performer fees'), (529, 608, 'Sound System', 3000.00, '2026-01-25', 'PA system rental'), (530, 608, 'Security', 4000.00, '2026-01-28', 'Venue security'), (531, 608, 'Venue Rental', 5000.00, '2026-01-30', 'Underground Club rental'),
+(532, 609, 'Film Stock', 15000.00, '2026-02-05', '35mm film purchase'), (533, 609, 'Gaffer Salary', 6000.00, '2026-02-10', 'Lighting lead compensation'), (534, 609, 'Location Fee', 3000.00, '2026-02-15', 'Apartment rental'), (535, 609, 'Sound Mix', 8000.00, '2026-02-28', 'Post-production audio mixing'),
+(536, 610, 'Model Fees', 35000.00, '2026-01-31', 'Model compensation'), (537, 610, 'Runway Build', 12000.00, '2026-01-25', 'Temporary stage construction'), (538, 610, 'Lighting', 8000.00, '2026-01-28', 'Specialty lighting'), (539, 610, 'Venue Rental', 20000.00, '2026-02-01', 'Convention Center rental'),
+(540, 611, 'Puppet Cost', 10000.00, '2026-02-15', 'Custom puppet construction'), (541, 611, 'Costumes', 15000.00, '2026-02-10', 'Child actor costumes'), (542, 611, 'Set Design', 20000.00, '2026-02-01', 'Fantasy backdrop build'), (543, 611, 'Transport', 4000.00, '2026-02-20', 'Prop delivery'),
+(544, 612, 'Security', 7000.00, '2026-02-25', 'Traffic control and perimeter security'), (545, 612, 'Stunt Double Fee', 10000.00, '2026-02-20', 'Performer fee'), (546, 612, 'Catering', 5000.00, '2026-02-25', 'Late-night shoot catering'), (547, 612, 'Location Fee', 8000.00, '2026-02-28', 'Abandoned factory rental'),
+(548, 613, 'VFX Budget', 60000.00, '2026-03-05', 'Post-production CGI'), (549, 613, 'Pyrotechnics', 15000.00, '2026-02-28', 'Fire effects'), (550, 613, 'Costumes', 25000.00, '2026-02-15', 'Armored suit material'), (551, 613, 'Stunt Coordinator', 12000.00, '2026-03-01', 'Coordinator salary'),
+(552, 614, 'Location Fee', 4000.00, '2026-03-10', 'Coffee shop rental'), (553, 614, 'Writer Salary', 10000.00, '2026-03-15', 'Script writer fee'), (554, 614, 'Transport', 2000.00, '2026-03-20', 'Small van rental'), (555, 614, 'Marketing', 5000.00, '2026-03-25', 'Instagram promotion'),
+(556, 615, 'Speaker Fees', 50000.00, '2026-02-28', 'Keynote speaker fees'), (557, 615, 'AV Tech', 10000.00, '2026-02-27', 'Screen and projector rental'), (558, 615, 'Catering', 12000.00, '2026-02-26', 'Breakfast and lunch service'), (559, 615, 'Venue Rental', 15000.00, '2026-03-01', 'Convention Center hall rental'),
+(560, 616, 'Artist Fee', 8000.00, '2026-03-20', 'Musician compensation'), (561, 616, 'Location Fee', 3000.00, '2026-03-15', 'Skate park rental'), (562, 616, 'DOP Fee', 5000.00, '2026-03-25', 'Cinematographer salary'), (563, 616, 'Sound Mixing', 4000.00, '2026-03-30', 'Post-production audio'),
+(564, 617, 'Decorations', 8000.00, '2026-03-20', 'Red carpet and floral arrangements'), (565, 617, 'Catering', 20000.00, '2026-03-25', 'VIP four-course dinner'), (566, 617, 'Security', 10000.00, '2026-03-28', 'Security team'), (567, 617, 'Venue Rental', 30000.00, '2026-03-30', 'Grand Theater full rental'),
+(568, 618, 'Armory Rental', 5000.00, '2026-03-10', 'Prop gun rental'), (569, 618, 'Location Fee', 15000.00, '2026-03-15', 'Sunset Ranch rental'), (570, 618, 'Costumes', 12000.00, '2026-03-05', 'Western wardrobe'), (571, 618, 'Transport', 6000.00, '2026-03-20', '4x4 vehicle rental'),
+(572, 619, 'Set Dressing', 15000.00, '2026-03-15', 'Ruined props'), (573, 619, 'VFX Budget', 40000.00, '2026-03-30', 'CGI enhancements'), (574, 619, 'Security', 10000.00, '2026-03-20', 'Location security'), (575, 619, 'Transport', 8000.00, '2026-03-25', 'Large equipment transport'),
+(576, 620, 'Artist Fees', 25000.00, '2026-03-25', 'Choreographer and lead dancers'), (577, 620, 'Stage Build', 10000.00, '2026-03-10', 'Outdoor stage construction'), (578, 620, 'Security', 12000.00, '2026-03-30', 'Festival security'), (579, 620, 'Venue Fee', 15000.00, '2026-04-05', 'Amphitheater fee'),
+-- P621-P650: 2 expenses each
+(580, 621, 'SFX Makeup', 7000.00, '2026-02-15', 'Gore effects'), (581, 621, 'Location Fee', 3000.00, '2026-02-20', 'Forest location'),
+(582, 622, 'Catering', 2000.00, '2026-03-10', 'Applicant refreshments'), (583, 622, 'Studio Rental', 4000.00, '2026-03-15', 'Studio 54 space'),
+(584, 623, 'Mixing Fees', 15000.00, '2026-03-20', 'Engineer and studio time'), (585, 623, 'Mastering', 5000.00, '2026-03-25', 'Final audio preparation'),
+(586, 624, 'Editor Salary', 8000.00, '2026-03-10', 'Post-production salary'), (587, 624, 'Camera Rental', 5000.00, '2026-03-15', 'Documentary camera gear'),
+(588, 625, 'Costumes', 30000.00, '2026-03-20', 'Armor and robes'), (589, 625, 'VFX Budget', 25000.00, '2026-03-25', 'Dragon CGI'),
+(590, 626, 'Set Build', 15000.00, '2026-03-15', 'Spaceship interior'), (591, 626, 'Prop Rental', 4000.00, '2026-03-20', 'Space helmets'),
+(592, 627, 'Location Fee', 1000.00, '2026-03-10', 'Park permits'), (593, 627, 'Soundtrack', 6000.00, '2026-03-30', 'Original score'),
+(594, 628, 'Vehicle Rental', 8000.00, '2026-03-05', 'RV and cameras'), (595, 628, 'Travel Expense', 3000.00, '2026-03-10', 'Gas and lodging'),
+(596, 629, 'SFX Makeup', 10000.00, '2026-03-15', 'Fangs and blood'), (597, 629, 'Lighting', 5000.00, '2026-03-20', 'Mood lighting setup'),
+(598, 630, 'Costumes', 20000.00, '2026-03-10', '1920s gowns'), (599, 630, 'Location Fee', 7000.00, '2026-03-15', 'Historical house rental'),
+(600, 631, 'Travel Expense', 15000.00, '2026-03-05', 'International flights'), (601, 631, 'Editor Fee', 10000.00, '2026-03-30', 'Post-production fee'),
+(602, 632, 'Comedian Fee', 18000.00, '2026-03-10', 'Performer fee'), (603, 632, 'Venue Rental', 4000.00, '2026-03-15', 'Club rental'),
+(604, 633, 'Security', 10000.00, '2026-03-20', 'Set security'), (605, 633, 'Writer Fee', 12000.00, '2026-03-25', 'Script polish'),
+(606, 634, 'Stunt Coordinator', 8000.00, '2026-03-15', 'Action scene planning'), (607, 634, 'VFX Budget', 30000.00, '2026-03-30', 'Digital effects'),
+(608, 635, 'Set Dressing', 10000.00, '2026-03-20', 'Future tech props'), (609, 635, 'VFX Budget', 40000.00, '2026-03-30', 'Time portal rendering'),
+(610, 636, 'Set Design', 5000.00, '2026-03-10', 'Living room set'), (611, 636, 'Catering', 3000.00, '2026-03-15', 'On-set snacks'),
+(612, 637, 'SFX Equipment', 20000.00, '2026-03-20', 'Wind and rain machines'), (613, 637, 'Stunt Team', 15000.00, '2026-03-25', 'Collapse stunts'),
+(614, 638, 'Costumes', 40000.00, '2026-03-10', 'Chainmail and armor'), (615, 638, 'Location Fee', 8000.00, '2026-03-15', 'Forest location'),
+(616, 639, 'Choreographer Fee', 7000.00, '2026-03-20', 'Dance routine planning'), (617, 639, 'Sound Mix', 9000.00, '2026-03-30', 'Vocal and music mixing'),
+(618, 640, 'Armory Rental', 5000.00, '2026-03-15', 'Weapon props'), (619, 640, 'Security', 10000.00, '2026-03-20', 'Confidential set security'),
+(620, 641, 'Venue Rental', 15000.00, '2026-03-25', 'Grand Theater sections'), (621, 641, 'Projection Tech', 5000.00, '2026-03-30', 'A/V specialist'),
+(622, 642, 'Security', 12000.00, '2026-03-10', 'Route security and barricades'), (623, 642, 'Medical Staff', 8000.00, '2026-03-15', 'On-site medics'),
+(624, 643, 'Venue Rental', 30000.00, '2026-03-20', 'Downtown Arena rental'), (625, 643, 'A/V Setup', 15000.00, '2026-03-25', 'Large screen and sound'),
+(626, 644, 'Wine Cost', 20000.00, '2026-03-15', 'Wine purchase for auction'), (627, 644, 'Catering', 10000.00, '2026-03-20', 'Appetizers and canapés'),
+(628, 645, 'Venue Rental', 18000.00, '2026-03-10', 'Convention Center hall'), (629, 645, 'Product Samples', 50000.00, '2026-03-15', 'Promotional products'),
+(630, 646, 'Art Transport', 5000.00, '2026-03-20', 'Delivery and setup'), (631, 646, 'Catering', 6000.00, '2026-03-25', 'Canapés and drinks'),
+(632, 647, 'Speaker Fees', 75000.00, '2026-03-10', 'International speaker fees'), (633, 647, 'Venue Rental', 40000.00, '2026-03-15', 'Multiple Convention Center rooms'),
+(634, 648, 'Venue Fee', 10000.00, '2026-03-20', 'Amphitheater ground rental'), (635, 648, 'Marketing', 5000.00, '2026-03-25', 'Local marketing campaign'),
+(636, 649, 'Comedian Fee', 15000.00, '2026-03-10', 'Headliner fee'), (637, 649, 'Venue Rental', 3000.00, '2026-03-15', 'Underground Club space'),
+(638, 650, 'Venue Rental', 25000.00, '2026-03-20', 'Grand Theater full day rental'), (639, 650, 'Security', 7000.00, '2026-03-25', 'Event security');
+
+INSERT INTO production (production_id, title, production_type, contract_hire_date, contract_expiration_date) VALUES 
+(700, 'Neon Night Drive', 'Music', '2025-09-01', '2026-03-31'),
+(701, 'Desert Bloom', 'Music', '2025-10-01', '2026-04-30'),
+(702, 'The Golden Age', 'General', '2025-11-01', '2027-01-31'),
+(703, 'Echoes of the Past', 'Music', '2026-01-01', '2026-06-30'),
+(704, 'Silent Storm', 'General', '2026-02-01', '2027-03-31'),
+(705, 'Urban Symphony', 'Music', '2026-03-01', '2026-08-31'),
+(706, 'Lunar Lullaby', 'Music', '2026-05-01', '2026-10-31'),
+(707, 'Shadowlands', 'General', '2026-06-01', '2027-06-30'),
+(708, 'Rhythm Nation', 'Music', '2026-08-01', '2027-01-31'),
+(709, 'Beyond the Horizon', 'General', '2026-10-01', '2027-09-30'),
+(710, 'Deep Dive', 'Music', '2026-11-01', '2027-04-30');
+
+-- Assuming generalproduction fields are (production_id, genre, rating_estimate)
+-- We use the 'Music' genre for music productions as per your query.
+INSERT INTO generalproduction (production_id, genre, plan_release_quarter, plan_release_year) VALUES 
+(700, 'Music', 4, 2025),
+(701, 'Music', 1, 2026),
+(702, 'History', 3, 2026),
+(703, 'Music', 1, 2026),
+(704, 'Thriller', 2, 2027), -- Planned for Q2 2027 following Q1 trailer release
+(705, 'Music', 1, 2026),
+(706, 'Music', 2, 2026),
+(707, 'Fantasy', 3, 2027), -- Planned for Q3 2027 following Q1 2027 filming
+(708, 'Music', 4, 2026),
+(709, 'Sci-Fi', 4, 2027), -- Planned for Q4 2027 following early 2027 pre-production
+(710, 'Music', 4, 2026);
+
+INSERT INTO productionschedule (prod_schedule_id, production_id, personnel_id, start_dt, end_dt, taskname, location) VALUES 
+-- DEC 2025 (Q4 2025)
+(3500, 700, 18, '2025-12-20 09:00:00', '2025-12-20 17:00:00', 'Final Audio Mix Review', 'Post Lab'),
+(3501, 700, 37, '2025-12-28 00:00:00', '2025-12-28 23:59:59', 'Music Release (Neon)', 'Digital Platform'),
+(3502, 702, 35, '2025-12-18 10:00:00', '2025-12-18 13:00:00', 'Pre-Production Meeting', 'Office'),
+
+-- JAN 2026 (Q1 2026)
+(3503, 701, 18, '2026-01-15 08:00:00', '2026-01-15 16:00:00', 'Album Mastering', 'Studio C'),
+(3504, 701, 37, '2026-01-25 00:00:00', '2026-01-25 23:59:59', 'Music Release (Desert Bloom)', 'Digital Platform'),
+(3505, 702, 4, '2026-01-20 09:00:00', '2026-01-20 17:00:00', 'Lead Role Casting', 'Casting Studio'),
+
+-- FEB 2026 (Q1 2026)
+(3506, 703, 18, '2026-02-05 10:00:00', '2026-02-05 14:00:00', 'Demo Recording', 'Studio C'),
+(3507, 704, 35, '2026-02-15 07:00:00', '2026-02-15 19:00:00', 'Location Scouting', 'Warehouse District'),
+(3508, 703, 37, '2026-02-28 00:00:00', '2026-02-28 23:59:59', 'Music Release (Echoes Preview)', 'Digital Platform'),
+
+-- MAR 2026 (Q1 2026)
+(3509, 705, 18, '2026-03-10 10:00:00', '2026-03-10 18:00:00', 'Final Mix', 'Post Lab'),
+(3510, 705, 37, '2026-03-25 00:00:00', '2026-03-25 23:59:59', 'Music Release (Urban Symphony)', 'Digital Platform'),
+(3511, 704, 4, '2026-03-28 09:00:00', '2026-03-28 17:00:00', 'Costume Design Approval', 'Wardrobe'),
+
+-- APR 2026 (Q2 2026)
+(3512, 702, 34, '2026-04-05 08:00:00', '2026-04-10 17:00:00', 'Set Construction Start', 'Backlot'),
+(3513, 703, 1, '2026-04-15 09:00:00', '2026-04-15 17:00:00', 'Music Video Shoot', 'Studio 54'),
+(3514, 705, 29, '2026-04-28 10:00:00', '2026-04-28 12:00:00', 'Marketing Launch Meeting', 'Office'),
+
+-- MAY 2026 (Q2 2026)
+(3515, 706, 18, '2026-05-10 10:00:00', '2026-05-10 18:00:00', 'Instrumental Tracking', 'Studio C'),
+(3516, 704, 25, '2026-05-20 07:00:00', '2026-05-20 15:00:00', 'Stunt Choreography', 'Gym'),
+(3517, 706, 37, '2026-05-30 00:00:00', '2026-05-30 23:59:59', 'Music Release (Lunar Preview)', 'Digital Platform'),
+
+-- JUN 2026 (Q2 2026)
+(3518, 707, 35, '2026-06-15 10:00:00', '2026-06-15 13:00:00', 'Screenplay Read-Through', 'Office'),
+(3519, 704, 1, '2026-06-25 06:00:00', '2026-06-25 20:00:00', 'Filming Day 1', 'Warehouse District'),
+(3520, 706, 1, '2026-06-28 09:00:00', '2026-06-28 17:00:00', 'Music Video Shoot', 'Outdoor Venue'),
+
+-- JUL 2026 (Q3 2026)
+(3521, 706, 29, '2026-07-10 10:00:00', '2026-07-10 12:00:00', 'Media Interview Planning', 'Office'),
+(3522, 707, 4, '2026-07-20 09:00:00', '2026-07-20 17:00:00', 'Supporting Role Casting', 'Casting Studio'),
+(3523, 707, 24, '2026-07-30 14:00:00', '2026-07-30 16:00:00', 'Budget Finalization', 'Office'),
+
+-- AUG 2026 (Q3 2026)
+(3524, 708, 18, '2026-08-15 10:00:00', '2026-08-15 18:00:00', 'Vocal Recording', 'Studio C'),
+(3525, 704, 27, '2026-08-25 09:00:00', '2026-08-25 17:00:00', 'VFX Pre-visualization', 'Post Lab'),
+(3526, 708, 37, '2026-08-30 00:00:00', '2026-08-30 23:59:59', 'Music Release (Rhythm Preview)', 'Digital Platform'),
+
+-- SEP 2026 (Q3 2026)
+(3527, 702, 37, '2026-09-10 10:00:00', '2026-09-10 17:00:00', 'Press Junket', 'Hotel Ballroom'),
+(3528, 707, 34, '2026-09-20 08:00:00', '2026-09-20 18:00:00', 'Props Fabrication', 'Workshop'),
+(3529, 702, 2, '2026-09-30 18:00:00', '2026-09-30 23:00:00', 'Premiere Screening', 'Cinema Complex'),
+
+-- OCT 2026 (Q4 2026)
+(3530, 709, 35, '2026-10-15 10:00:00', '2026-10-15 12:00:00', 'Director''s Vision Meeting', 'Office'),
+(3531, 708, 1, '2026-10-25 18:00:00', '2026-10-25 23:00:00', 'Music Video Shoot', 'Night Club'),
+(3532, 708, 37, '2026-10-30 00:00:00', '2026-10-30 23:59:59', 'Music Release (Rhythm Nation)', 'Digital Platform'),
+
+-- NOV 2026 (Q4 2026)
+(3533, 710, 18, '2026-11-10 09:00:00', '2026-11-10 17:00:00', 'Track Mixing', 'Post Lab'),
+(3534, 709, 4, '2026-11-20 09:00:00', '2026-11-20 17:00:00', 'Main Cast Auditions', 'Casting Studio'),
+(3535, 710, 37, '2026-11-30 00:00:00', '2026-11-30 23:59:59', 'Music Release (Deep Dive Preview)', 'Digital Platform'),
+
+-- DEC 2026 (Q4 2026)
+(3536, 707, 1, '2026-12-05 06:00:00', '2026-12-05 20:00:00', 'Filming Day 1', 'Remote Location'),
+(3537, 710, 1, '2026-12-15 08:00:00', '2026-12-15 18:00:00', 'Music Video Shoot', 'Underwater Studio'),
+(3538, 709, 29, '2026-12-28 10:00:00', '2026-12-28 12:00:00', 'Press Release Drafting', 'Office'),
+
+-- JAN 2027 (Q1 2027)
+(3539, 704, 27, '2027-01-15 09:00:00', '2027-01-15 17:00:00', 'Color Grading', 'Post Lab'),
+(3540, 707, 25, '2027-01-25 07:00:00', '2027-01-25 15:00:00', 'Action Choreography', 'Gym'),
+(3541, 710, 29, '2027-01-30 14:00:00', '2027-01-30 16:00:00', 'Album Artwork Approval', 'Office'),
+
+-- FEB 2027 (Q1 2027)
+(3542, 709, 27, '2027-02-10 10:00:00', '2027-02-10 17:00:00', 'Storyboard Finalization', 'Office'),
+(3543, 707, 15, '2027-02-20 10:00:00', '2027-02-20 12:00:00', 'Investor Presentation', 'Office'),
+(3544, 704, 37, '2027-02-28 00:00:00', '2027-02-28 23:59:59', 'Final Movie Trailer Release', 'Digital Platform'),
+
+-- MAR 2027 (Q1 2027)
+(3545, 709, 34, '2027-03-10 08:00:00', '2027-03-15 17:00:00', 'Set Design Commencement', 'Backlot'),
+(3546, 707, 1, '2027-03-20 06:00:00', '2027-03-20 20:00:00', 'Filming Day 10', 'Studio 54'),
+(3547, 704, 2, '2027-03-30 10:00:00', '2027-03-30 13:00:00', 'Premiere Event Booking', 'Theater Hall');
+-- =============================================
+-- DATA FIX: UNIFY PERSONNEL TYPE (Actress -> Actor)
+-- This ensures consistency across the dataset.
+-- =============================================
+UPDATE personnel
+SET personnel_type = 'Actor'
+WHERE personnel_type = 'Actress';
+
+
 -- ===============================
 -- 15 QUERIES (DATETIME SAFE)
 -- ===============================
